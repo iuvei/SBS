@@ -211,6 +211,13 @@ Namespace SBCAgents
             End If
 
             ShowLimitsInfo()
+
+            ' Set active tab
+            viewTabsContent.ActiveViewIndex = 0
+            lbtTabGeneral.CssClass = "active"
+            lbtTabLimits.CssClass = ""
+            lbtTabLimitDetails.CssClass = ""
+
             Return True
         End Function
 
@@ -1151,6 +1158,28 @@ Namespace SBCAgents
 
         End Sub
 
+        Protected Sub lbtTabGeneral_Click(sender As Object, e As EventArgs) Handles lbtTabGeneral.Click
+            viewTabsContent.ActiveViewIndex = 0
+
+            lbtTabGeneral.CssClass = "active"
+            lbtTabLimits.CssClass = ""
+            lbtTabLimitDetails.CssClass = ""
+        End Sub
+        Protected Sub lbtTabLimits_Click(sender As Object, e As EventArgs) Handles lbtTabLimits.Click
+            viewTabsContent.ActiveViewIndex = 1
+
+            lbtTabGeneral.CssClass = ""
+            lbtTabLimits.CssClass = "active"
+            lbtTabLimitDetails.CssClass = ""
+        End Sub
+
+        Protected Sub lbtLimitDetails_Click(sender As Object, e As EventArgs) Handles lbtTabLimitDetails.Click
+            viewTabsContent.ActiveViewIndex = 2
+
+            lbtTabGeneral.CssClass = ""
+            lbtTabLimits.CssClass = ""
+            lbtTabLimitDetails.CssClass = "active"
+        End Sub
     End Class
 
 End Namespace

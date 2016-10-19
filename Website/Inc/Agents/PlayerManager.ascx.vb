@@ -238,6 +238,39 @@ Namespace SBSAgents
                     Dim hfBettingLock As HiddenField = CType(e.Item.FindControl("hfBettingLock"), HiddenField)
                     oPlayerManager.SetBettingLockPlayers(oPlayerIDAndLogins, IIf(hfBettingLock.Value.Equals("Y", StringComparison.CurrentCultureIgnoreCase), False, True))
                     bindPlayers()
+               Case "CHANGEPASSWORD"
+                    Dim txtPassword As TextBox = CType(e.Item.FindControl("txtPassword"), TextBox)
+                    txtPassword.BorderColor = Nothing
+                    txtPassword.Visible = True
+
+                    Dim btnSavePassword As Button = CType(e.Item.FindControl("btnSavePassword"), Button)
+                    btnSavePassword.Visible = True
+                    
+                    Dim lbnChangePassword As LinkButton = CType(e.Item.FindControl("lbnChangePassword"), LinkButton)
+                    lbnChangePassword.Visible = False
+                    Dim lblPassword As Label = CType(e.Item.FindControl("lblPassword"), Label)
+                    lblPassword.Visible = False
+                    
+               Case "SAVEPASSWORD"     
+                    Dim txtPassword As TextBox = CType(e.Item.FindControl("txtPassword"), TextBox)
+                    If Not String.IsNullOrWhiteSpace(txtPassword.Text) Then
+                        Dim playerId As String = e.CommandArgument.Split("|")(0)
+                        Dim login As String = e.CommandArgument.Split("|")(1)
+                        If oPlayerManager.UpdatePasswordPlayer(playerId, login, txtPassword.Text.Trim(), UserSession.UserID) Then
+
+                            Dim lbnChangePassword As LinkButton = CType(e.Item.FindControl("lbnChangePassword"), LinkButton)
+                            Dim lblPassword As Label = CType(e.Item.FindControl("lblPassword"), Label)
+                            Dim btnSavePassword As Button = CType(e.Item.FindControl("btnSavePassword"), Button)
+
+                            lbnChangePassword.Visible = True
+                            lblPassword.Visible = True
+                            btnSavePassword.Visible = False
+                            txtPassword.Visible = False
+                            lblPassword.Text = txtPassword.Text
+                        End If
+                    Else
+                        txtPassword.BorderColor = System.Drawing.Color.Red
+                    End If
             End Select
         End Sub
 

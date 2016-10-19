@@ -282,6 +282,12 @@ Namespace SBSAgents
                 chk20Acc.Enabled = True
                 ddlTemplates.Enabled = True
             End If
+
+            '' Set active tab
+            viewTabsContent.ActiveViewIndex = 0
+            lbtTabGeneral.CssClass = "active"
+            lbtTabAccessRights.CssClass = ""
+
             Return True
         End Function
 
@@ -416,7 +422,18 @@ Namespace SBSAgents
         'End Sub
 
 
-        
+        Protected Sub lbtTabGeneral_Click(sender As Object, e As EventArgs) Handles lbtTabGeneral.Click
+            viewTabsContent.ActiveViewIndex = 0
+
+            lbtTabGeneral.CssClass = "active"
+            lbtTabAccessRights.CssClass = ""
+        End Sub
+        Protected Sub lbtTabAccessRights_Click(sender As Object, e As EventArgs) Handles lbtTabAccessRights.Click
+            viewTabsContent.ActiveViewIndex = 1
+
+            lbtTabGeneral.CssClass = ""
+            lbtTabAccessRights.CssClass = "active"
+        End Sub
 
 
     End Class

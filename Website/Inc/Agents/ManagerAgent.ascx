@@ -74,17 +74,27 @@
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Left" />
                     </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" HeaderText="Block">
+                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" HeaderText="Disabled">
                         <ItemTemplate>
                             <asp:LinkButton ID="lbnLock" runat="server" Style="text-decoration: none" Text='<%#IIf(SBCBL.std.SafeString(Container.DataItem("IsLocked")).Equals("Y"),"Y","N")   %>' CommandName="Lock" CommandArgument='<%# SBCBL.std.SafeString(Container.DataItem("AgentID")) & "|" & SBCBL.std.SafeString(Container.DataItem("Login")) %>' />
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" />
                     </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" HeaderText="Betting Block">
+                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" HeaderText="Bet Disabled">
                         <ItemTemplate>
                             <asp:LinkButton ID="lbnBettingLock" runat="server" Style="text-decoration: none" Text='<%#IIf(SBCBL.std.SafeString(Container.DataItem("IsBettingLocked")).Equals("Y"),"Y","N")   %>' CommandName="Betting Lock" CommandArgument='<%# SBCBL.std.SafeString(Container.DataItem("AgentID")) & "|" & SBCBL.std.SafeString(Container.DataItem("Login")) %>' />
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" />
+                    </asp:TemplateColumn>
+                    <asp:TemplateColumn HeaderText="Password" ItemStyle-HorizontalAlign="Center">
+                        <ItemStyle HorizontalAlign="Center" />
+                        <ItemTemplate>
+                            <asp:Label runat="server" ID="lblPassword" Text='<%# SBCBL.std.SafeString(Container.DataItem("Password")) %>'></asp:Label>
+                            <asp:TextBox runat="server" CssClass="password-field form-control" ID="txtPassword" Visible="False" Text='<%# SBCBL.std.SafeString(Container.DataItem("PassWord")) %>'></asp:TextBox>
+                            <asp:LinkButton runat="server" CssClass="link-edit" ID="lbnChangePassword" Text="Change" CommandName="ChangePassword"></asp:LinkButton>
+                            <asp:Button runat="server" ID="btnSavePassword" CssClass="btn btn-sm btn-info" Text="Save" Visible="False" CommandArgument='<%#  sbcbl.std.safestring(Container.DataItem("AgentID"))%>' CommandName="SavePassword"></asp:Button>
+
+                        </ItemTemplate>
                     </asp:TemplateColumn>
                     <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
                         <HeaderTemplate>

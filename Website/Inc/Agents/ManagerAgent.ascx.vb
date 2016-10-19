@@ -67,6 +67,7 @@ Namespace SBSAgents
             odtAgents.Columns.Add("NumOfAgent", GetType(Integer))
             odtAgents.Columns.Add("NumOfPlayer", GetType(Integer))
             odtAgents.Columns.Add("HasCasino", GetType(String))
+            odtAgents.Columns.Add("Password", GetType(String))
             Dim oAgentManager As New CAgentManager
             Dim oPlayerManager As New CPlayerManager
             If rdAllAcct.Checked Then
@@ -84,6 +85,7 @@ Namespace SBSAgents
                 odrAgent("AgentID") = drParent("AgentID")
                 odrAgent("AgentName") = loopString("----", SafeInteger(drParent("AgentLevel")) - 2) & SafeString(drParent("AgentName"))
                 odrAgent("Login") = drParent("Login")
+                odrAgent("Password") = drParent("Password")
                 odrAgent("IsLocked") = drParent("IsLocked")
                 odrAgent("IsBettingLocked") = drParent("IsBettingLocked")
                 odrAgent("LastLoginDate") = drParent("LastLoginDate")
@@ -101,6 +103,7 @@ Namespace SBSAgents
                     odrAgent("AgentID") = drParent("AgentID")
                     odrAgent("AgentName") = SafeString(drParent("AgentName"))
                     odrAgent("Login") = drParent("Login")
+                    odrAgent("Password") = drParent("Password")
                     odrAgent("IsLocked") = drParent("IsLocked")
                     odrAgent("IsBettingLocked") = drParent("IsBettingLocked")
                     odrAgent("LastLoginDate") = drParent("LastLoginDate")
@@ -129,6 +132,7 @@ Namespace SBSAgents
                 odrAgent("AgentID") = drChild("AgentID")
                 odrAgent("AgentName") = loopString("----", SafeInteger(drChild("AgentLevel")) - 2) & SafeString(drChild("AgentName"))
                 odrAgent("Login") = drChild("Login")
+                odrAgent("Password") = drChild("Password")
                 odrAgent("IsLocked") = drChild("IsLocked")
                 odrAgent("LastLoginDate") = drChild("LastLoginDate")
                 odrAgent("HasCasino") = drChild("HasCasino")
@@ -194,6 +198,38 @@ Namespace SBSAgents
                             bindAgents()
 
                         End If
+                    End If
+                Case "CHANGEPASSWORD"
+                    Dim txtPassword As TextBox = CType(e.Item.FindControl("txtPassword"), TextBox)
+                    txtPassword.BorderColor = Nothing
+                    txtPassword.Visible = True
+
+                    Dim btnSavePassword As Button = CType(e.Item.FindControl("btnSavePassword"), Button)
+                    btnSavePassword.Visible = True
+
+                    Dim lbnChangePassword As LinkButton = CType(e.Item.FindControl("lbnChangePassword"), LinkButton)
+                    lbnChangePassword.Visible = False
+                    Dim lblPassword As Label = CType(e.Item.FindControl("lblPassword"), Label)
+                    lblPassword.Visible = False
+
+                Case "SAVEPASSWORD"
+                    Dim txtPassword As TextBox = CType(e.Item.FindControl("txtPassword"), TextBox)
+                    If Not String.IsNullOrWhiteSpace(txtPassword.Text) Then
+                        Dim agentId As String = e.CommandArgument
+                        If (New CAgentManager).UpdatePasswordAgent(agentId, txtPassword.Text.Trim(), UserSession.UserID) Then
+
+                            Dim lbnChangePassword As LinkButton = CType(e.Item.FindControl("lbnChangePassword"), LinkButton)
+                            Dim lblPassword As Label = CType(e.Item.FindControl("lblPassword"), Label)
+                            Dim btnSavePassword As Button = CType(e.Item.FindControl("btnSavePassword"), Button)
+
+                            lbnChangePassword.Visible = True
+                            lblPassword.Visible = True
+                            btnSavePassword.Visible = False
+                            txtPassword.Visible = False
+                            lblPassword.Text = txtPassword.Text
+                        End If
+                    Else
+                        txtPassword.BorderColor = System.Drawing.Color.Red
                     End If
             End Select
             dgAgents.SelectedIndex = e.Item.ItemIndex

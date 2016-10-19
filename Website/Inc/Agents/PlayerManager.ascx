@@ -19,185 +19,193 @@
     <div class="panel-body">
 
         <asp:UpdatePanel runat="server" ID="upPlayers">
-            <contenttemplate>
-        <asp:Panel ID="pnPlayerManager" runat="server">
-            <div class="form-group">
-                 <div class="col-md-1 w10">
-                     <asp:RadioButton ID="rdAllAcct" runat="server" GroupName="Acct" AutoPostBack="true" />
-                 </div>
-                <div class="col-md-2">
-                    <label class="control-label pt2">All Acct</label>
-                </div>
-                <div class="col-md-1 w10">
-                    <asp:RadioButton ID="rdLockAcct" runat="server" GroupName="Acct" AutoPostBack="true" />
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblLockAcct" CssClass="control-label pt2" runat="server"
-                            Text="Locked Acct"></asp:Label>
-                </div>
-                <div class="col-md-1 w10">
-                    <asp:RadioButton ID="rdLockBetAcct" runat="server" GroupName="Acct" AutoPostBack="true" />
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblLockBetAcct" runat="server"
-                            Text="Betting Locked Acct"></asp:Label>
-                </div>
-            </div>
-             <div class="form-group">
-                 <div class="col-md-2">
-                    <label class="control-label">Name or Login</label>
-                 </div>
-                 <div class="col-md-2">
-                     <asp:TextBox ID="txtNameOrLogin" runat="server" CssClass="form-control"></asp:TextBox>
-                 </div>
-                  <div class="col-md-2 w140">
-                    <label class="control-label">Agent</label>
-                 </div>
-                 <div class="col-md-3">
-                     <cc1:CDropDownList ID="ddlAgents" runat="server" CssClass="form-control"/>
-                 </div>
-                 <div class="col-md-1">
-                     <asp:Button ID="btnFilter" runat="server" Text="Filter" CssClass="btn btn-success"/>
-                 </div>
-                 <div class="col-md-2">
-                     <asp:Button CausesValidation="false" CssClass="btn btn-default" Text="Reset" runat="server" ID="btnreset" />
-                 </div>
-             </div>
-            <div class="form-group">
-                 <div class="col-md-2">
-                     <label class="control-label">Player Template</label>
-                 </div>
-                <div class="col-md-2">
-                    <cc1:CDropDownList ID="ddlplayerTemplate" runat="server" CssClass="form-control" />
-                </div>
-                <div class="col-md-2 w140">
-                    <label class="control-label">Player Accounts</label>
-                </div>
-                <div class="col-md-3">
-                    <asp:RadioButtonList ID="rdlNumAcc" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="rdo-group" >
-                        <asp:ListItem Value="1" Selected="True">1Acct</asp:ListItem>
-                        <asp:ListItem Value="5" Selected="True">5Accts</asp:ListItem>
-                        <asp:ListItem Value="10">10Accts</asp:ListItem>
-                    </asp:RadioButtonList>
-                </div>
-                <div class="col-md-2">
-                     <asp:Button ID="btnCreate" runat="server" Text="Add New Players" CssClass="btn btn-primary" />
-                </div>
-            </div>
-            
-            <asp:DataGrid ID="dgPlayers" runat="server" Width="100%" AutoGenerateColumns="false"
-                    CssClass="table table-hover table-bordered" AllowPaging="True"
-                PageSize="30">
-                <HeaderStyle CssClass="tableheading" HorizontalAlign="Center" />
-                <ItemStyle HorizontalAlign="Left" />
-                <PagerStyle Font-Names="tahoma" HorizontalAlign="Right" Mode="NumericPages" />
-                <AlternatingItemStyle HorizontalAlign="Left" />
-                <SelectedItemStyle BackColor="YellowGreen" />
-                <Columns>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="left" HeaderText="Name (Login)">
-                        <ItemTemplate>
-                            <nobr>
+            <ContentTemplate>
+                <asp:Panel ID="pnPlayerManager" runat="server">
+                    <div class="form-group">
+                        <div class="col-md-1 w10">
+                            <asp:RadioButton ID="rdAllAcct" runat="server" GroupName="Acct" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="control-label pt2">All Acct</label>
+                        </div>
+                        <div class="col-md-1 w10">
+                            <asp:RadioButton ID="rdLockAcct" runat="server" GroupName="Acct" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <asp:Label ID="lblLockAcct" CssClass="control-label pt2" runat="server"
+                                Text="Locked Acct"></asp:Label>
+                        </div>
+                        <div class="col-md-1 w10">
+                            <asp:RadioButton ID="rdLockBetAcct" runat="server" GroupName="Acct" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2">
+                            <asp:Label ID="lblLockBetAcct" runat="server"
+                                Text="Betting Locked Acct"></asp:Label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label class="control-label">Name or Login</label>
+                        </div>
+                        <div class="col-md-2">
+                            <asp:TextBox ID="txtNameOrLogin" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 w140">
+                            <label class="control-label">Agent</label>
+                        </div>
+                        <div class="col-md-3">
+                            <cc1:CDropDownList ID="ddlAgents" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-1">
+                            <asp:Button ID="btnFilter" runat="server" Text="Filter" CssClass="btn btn-success" />
+                        </div>
+                        <div class="col-md-2">
+                            <asp:Button CausesValidation="false" CssClass="btn btn-default" Text="Reset" runat="server" ID="btnreset" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label class="control-label">Player Template</label>
+                        </div>
+                        <div class="col-md-2">
+                            <cc1:CDropDownList ID="ddlplayerTemplate" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 w140">
+                            <label class="control-label">Player Accounts</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:RadioButtonList ID="rdlNumAcc" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="rdo-group">
+                                <asp:ListItem Value="1" Selected="True">1Acct</asp:ListItem>
+                                <asp:ListItem Value="5" Selected="True">5Accts</asp:ListItem>
+                                <asp:ListItem Value="10">10Accts</asp:ListItem>
+                            </asp:RadioButtonList>
+                        </div>
+                        <div class="col-md-2">
+                            <asp:Button ID="btnCreate" runat="server" Text="Add New Players" CssClass="btn btn-primary" />
+                        </div>
+                    </div>
+
+                    <asp:DataGrid ID="dgPlayers" runat="server" Width="100%" AutoGenerateColumns="false"
+                        CssClass="table table-hover table-bordered" AllowPaging="True"
+                        PageSize="30">
+                        <HeaderStyle CssClass="tableheading" HorizontalAlign="Center" />
+                        <ItemStyle HorizontalAlign="Left" />
+                        <PagerStyle Font-Names="tahoma" HorizontalAlign="Right" Mode="NumericPages" />
+                        <AlternatingItemStyle HorizontalAlign="Left" />
+                        <SelectedItemStyle BackColor="YellowGreen" />
+                        <Columns>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="left" HeaderText="Name (Login)">
+                                <ItemTemplate>
+                                    <nobr>
                 <asp:HiddenField ID="hfPlayerTemplateID" runat="server" Value='<%# SBCBL.std.SafeString(Container.DataItem("PlayerTemplateID")) & "|" & SBCBL.std.SafeString(Container.DataItem("DefaultPlayerTemplateID")) %>' />
                 <asp:LinkButton ID="lbtEdit" CssClass="itemplayer" runat="server" CommandArgument='<%#Container.DataItem("PlayerID") %>' CommandName="EditUser" Text='<%#Container.DataItem("Login") & " (" & Container.DataItem("Name")  & ")" %>'></asp:LinkButton> </nobr>
-                            <asp:HiddenField ID="hfLock" runat="server" Value='<%# SBCBL.std.SafeString(Container.DataItem("IsLocked")) %>'>
-                            </asp:HiddenField>
-                            <asp:HiddenField ID="hfBettingLock" runat="server" Value='<%# SBCBL.std.SafeString(Container.DataItem("IsBettingLocked")) %>'>
-                            </asp:HiddenField>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Left" />
-                    </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" HeaderText="Block">
-                        <ItemTemplate>
-                            <nobr>
+                                    <asp:HiddenField ID="hfLock" runat="server" Value='<%# SBCBL.std.SafeString(Container.DataItem("IsLocked")) %>'></asp:HiddenField>
+                                    <asp:HiddenField ID="hfBettingLock" runat="server" Value='<%# SBCBL.std.SafeString(Container.DataItem("IsBettingLocked")) %>'></asp:HiddenField>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Left" />
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" HeaderText="Disabled">
+                                <ItemTemplate>
+                                    <nobr>
             <asp:LinkButton  CssClass="itemplayer" runat="server" style="text-decoration:none"  id="lbnLock" Text='<%#IIf(SBCBL.std.SafeString(Container.DataItem("IsLocked")).Equals("Y"),"Y","N")   %>'  CommandName="LOCK" CommandArgument='<%#  sbcbl.std.safestring(Container.DataItem("PlayerID"))  & "|" & Container.DataItem("Login")  %>' ></asp:LinkButton>
                         
             </nobr>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" />
-                    </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" HeaderText="Block Bet">
-                        <ItemTemplate>
-                            <nobr>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" HeaderText="Bet Disabled">
+                                <ItemTemplate>
+                                    <nobr>
             <asp:LinkButton  CssClass="itemplayer" style="text-decoration:none"  runat="server" id="lbnBettingLock" Text='<%#IIf(SBCBL.std.SafeString(Container.DataItem("IsBettingLocked")).Equals("Y"),"Y","N")   %>'  CommandName="Betting Lock" CommandArgument='<%#  sbcbl.std.safestring(Container.DataItem("PlayerID"))  & "|" & Container.DataItem("Login")  %>' ></asp:LinkButton>
 
             </nobr>
-                        </ItemTemplate>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn HeaderText="Password" ItemStyle-HorizontalAlign="Center">
+                                <ItemStyle HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label runat="server" ID="lblPassword" Text='<%# SBCBL.std.SafeString(Container.DataItem("Password")) %>'></asp:Label>
+                                    <asp:TextBox runat="server" CssClass="password-field form-control" ID="txtPassword" Visible="False" Text='<%# SBCBL.std.SafeString(Container.DataItem("PassWord")) %>'></asp:TextBox>
+                                    <asp:LinkButton runat="server" CssClass="link-edit" ID="lbnChangePassword" Text="Change" CommandName="ChangePassword"></asp:LinkButton>
+                                    <asp:Button runat="server" ID="btnSavePassword" CssClass="btn btn-sm btn-info" Text="Save" Visible="False" CommandArgument='<%#  sbcbl.std.safestring(Container.DataItem("PlayerID"))  & "|" & Container.DataItem("Login")  %>' CommandName="SavePassword"></asp:Button>
+                                    
+                                </ItemTemplate> 
+                            </asp:TemplateColumn>
+                             <asp:BoundColumn DataField="PassWord" HeaderText="PassWord" ItemStyle-HorizontalAlign="Center">
                         <ItemStyle HorizontalAlign="Center" />
-                    </asp:TemplateColumn>
-                    <asp:BoundColumn DataField="PassWord" HeaderText="PassWord" ItemStyle-HorizontalAlign="Center">
-                        <ItemStyle HorizontalAlign="Center" />
-                    </asp:BoundColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
-                        <HeaderTemplate>
-                            Account Status
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <%#IIf(SBCBL.std.SafeString(Container.DataItem("IsLocked")).Equals("Y"), "Locked", "Active")%>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" Width="100px" />
-                    </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
-                        <HeaderTemplate>
-                            Last Log in
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <%#formatDate(Eval("LastLoginDate"))%>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" Width="100px" />
-                    </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center">
-                        <HeaderTemplate>
-                            Casino
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <%#IIf(SBCBL.std.SafeString(Container.DataItem("HasCasino")).Equals("Y"), "Yes", "No")%>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" />
-                    </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
-                        <HeaderTemplate>
-                            Limit
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblLimit" runat="server" Text=""></asp:Label>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" Width="100px" />
-                    </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
-                        <HeaderTemplate>
-                            Balance
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblBalance" runat="server" Text=""></asp:Label>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" Width="100px" />
-                    </asp:TemplateColumn>
-                    <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
-                        <HeaderTemplate>
-                            Pending
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblPending" runat="server" Text=""></asp:Label>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" Width="100px" />
-                    </asp:TemplateColumn>
-                </Columns>
-            </asp:DataGrid>
+                        </asp:BoundColumn>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
+                                <HeaderTemplate>
+                                    Account Status
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%#IIf(SBCBL.std.SafeString(Container.DataItem("IsLocked")).Equals("Y"), "Locked", "Active")%>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
+                                <HeaderTemplate>
+                                    Last Log in
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%#formatDate(Eval("LastLoginDate"))%>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="Center">
+                                <HeaderTemplate>
+                                    Casino
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%#IIf(SBCBL.std.SafeString(Container.DataItem("HasCasino")).Equals("Y"), "Yes", "No")%>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
+                                <HeaderTemplate>
+                                    Limit
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblLimit" runat="server" Text=""></asp:Label>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
+                                <HeaderTemplate>
+                                    Balance
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblBalance" runat="server" Text=""></asp:Label>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn ItemStyle-HorizontalAlign="Center" ItemStyle-Width="100">
+                                <HeaderTemplate>
+                                    Pending
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblPending" runat="server" Text=""></asp:Label>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="100px" />
+                            </asp:TemplateColumn>
+                        </Columns>
+                    </asp:DataGrid>
 
-            <asp:Label runat="server" ID="lblmsg" ForeColor="Red" Visible="false" Text="No result was found. Please try again later."></asp:Label>
-        </asp:Panel>
-        <div style="margin-left: 10px; margin-top: 10px" id="PlayerEdit" runat="server" visible="false">
-            <uc1:PlayerEdit ID="ucPlayerEdit" runat="server" />
-        </div>
-    </contenttemplate>
-            <triggers>
-        <asp:AsyncPostBackTrigger ControlID="btnfilter" EventName="Click" />
-        <asp:AsyncPostBackTrigger ControlID="rdLockAcct" EventName="CheckedChanged" />
-        <asp:AsyncPostBackTrigger ControlID="rdLockBetAcct" EventName="CheckedChanged" />
-        <asp:AsyncPostBackTrigger ControlID="rdAllAcct" EventName="CheckedChanged" />
-       <%-- <asp:AsyncPostBackTrigger ControlID="btnaddnewplayer" EventName="Click" />--%>
-        <asp:AsyncPostBackTrigger ControlID="btnreset" EventName="Click" />
-    </triggers>
+                    <asp:Label runat="server" ID="lblmsg" ForeColor="Red" Visible="false" Text="No result was found. Please try again later."></asp:Label>
+                </asp:Panel>
+                <div style="margin-left: 10px; margin-top: 10px" id="PlayerEdit" runat="server" visible="false">
+                    <uc1:PlayerEdit ID="ucPlayerEdit" runat="server" />
+                </div>
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="btnfilter" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="rdLockAcct" EventName="CheckedChanged" />
+                <asp:AsyncPostBackTrigger ControlID="rdLockBetAcct" EventName="CheckedChanged" />
+                <asp:AsyncPostBackTrigger ControlID="rdAllAcct" EventName="CheckedChanged" />
+                <%-- <asp:AsyncPostBackTrigger ControlID="btnaddnewplayer" EventName="Click" />--%>
+                <asp:AsyncPostBackTrigger ControlID="btnreset" EventName="Click" />
+            </Triggers>
         </asp:UpdatePanel>
     </div>
 </div>
@@ -337,7 +345,7 @@
 </script>
 <%--Processing--%>
 <asp:UpdateProgress ID="up1" runat="server" DisplayAfter="300">
-    <progresstemplate>
+    <ProgressTemplate>
         <div id="divUpdateProgressModal" class="modalBackground">
         </div>
         <div class="ProcessingPanel" id="divProcessPnl" style="left: 400px; top: 200px; position: fixed">
@@ -431,7 +439,7 @@
                 }
             }
         </script>
-    </progresstemplate>
+    </ProgressTemplate>
 </asp:UpdateProgress>
 <script type="text/javascript">
 

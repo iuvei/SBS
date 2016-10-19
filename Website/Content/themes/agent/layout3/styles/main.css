@@ -900,7 +900,7 @@ hr {
     
 }
 
-.navbar-static-side ul li.active a {
+.navbar-static-side ul li.active > a {
 /*background:url(../images/bg/pointer.png) no-repeat right 14px;  Old browsers */
 color:#FFF;
     background-color: #66b0ea;
@@ -7378,3 +7378,76 @@ ul.chats li.out .message {
 .profile .icon-settings { margin-right:5px}	
 
 .task-item {margin-top:15px; overflow:hidden; display:block}
+
+/* Group left menu */
+.navbar-static-side ul li.has-children > a:after {
+    content: "\f0da";
+    font-family: "FontAwesome";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.navbar-static-side ul li.has-children.active > a:after {
+    content: "\f0d7";
+}
+.navbar-static-side ul.sub-menu-agent li:first-child a {
+    padding: 15px;
+}
+.sub-menu-agent li {
+    padding-left: 30px;
+}
+.navbar-static-side ul.sub-menu-agent li.active > a,
+.navbar-static-side ul.sub-menu-agent li a:hover, 
+.navbar-static-side ul.sub-menu-agent li a:focus {
+    background-color: transparent;
+    color: #66b0ea;
+    font-weight: normal;
+    text-shadow: none;
+}
+
+/*change password */
+.link-edit {
+    color: #4c92d7;
+    font-size: 12px;
+    margin-left: 10px;
+}
+.password-field.form-control {
+    display: inline-block;
+    height: 30px;
+    padding: 0 5px;
+    vertical-align: middle;
+    width: 100px;
+}
+/* Players/Agent setup tabs */
+#player-setup-tabs {
+    
+}
+#player-setup-nav-tabs.nav.nav-tabs li,
+#agent-setup-nav-tabs.nav.nav-tabs li {
+   margin-bottom: -1px;
+}
+#player-setup-nav-tabs.nav.nav-tabs li a,
+#agent-setup-nav-tabs.nav.nav-tabs li a {
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+    background: #4b5d67;
+    border: 1px solid #4b5d67;
+    color: #fff;
+    font-size: 18px;
+    padding: 7px 15px;
+    text-transform: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+#player-setup-nav-tabs.nav.nav-tabs li a.active,
+#agent-setup-nav-tabs.nav.nav-tabs li a.active {
+    background: #fff;
+    border-bottom-color: #fff;
+    color: #4b5d67;
+}
+
+#player-setup-tab-contents.tab-content,
+#agent-setup-tab-contents.tab-content {
+    border-color: #4b5d67;
+    padding: 20px !important;
+}

@@ -1552,6 +1552,38 @@ Namespace Managers
 
             Return False
         End Function
+
+        Public Function UpdatePasswordPlayer(ByVal psPlayerID As String, ByVal psLogin As String, ByVal psPassword As String, ByVal psChangedBy As String) As Boolean
+
+            Dim bSuccess As Boolean = True
+
+            Dim oUpdate As New CSQLUpdateStringBuilder("Players", "WHERE PlayerID= " & SQLString(psPlayerID))
+            Dim odbSQL As New CSQLDBUtils(SBC_CONNECTION_STRING, SBC2_CONNECTION_STRING)
+
+            Try
+                With oUpdate
+                    If psPassword <> "" Then
+                        .AppendString("Password", SQLString(psPassword))
+                        .AppendString("PasswordLastUpdated", SQLString(Date.Now.ToUniversalTime))
+                    End If
+                End With
+
+                log.Debug("Update player's password. SQL: " & oUpdate.SQL)
+                odbSQL.executeNonQuery(oUpdate, psChangedBy)
+
+                ''clear cache
+                Dim oCache As New CacheUtils.CCacheManager
+                oCache.ClearPlayerInfo(psPlayerID, psLogin)
+                '' Update Casino Account
+            Catch ex As Exception
+                bSuccess = False
+                log.Error("Error trying to save User. SQL: " & oUpdate.SQL, ex)
+            Finally
+                odbSQL.closeConnection()
+            End Try
+
+            Return bSuccess
+        End Function
     End Class
 
 End Namespace

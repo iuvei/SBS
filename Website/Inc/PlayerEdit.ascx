@@ -12,11 +12,25 @@
         <asp:Button ID="btnResetBalance" runat="server" OnClientClick="return confirm('Do You Want Reset Manualy Account Balance ?')" CssClass="btn btn-primary pull-right" Visible="false" Text="Reset Manualy Account Balance" />
     </div>
 </div>
-<div class="form-group">
-    <div class="col-lg-6">
-        <div class="panel panel-grey">
-            <div class="panel-heading">Player's Infomation</div>
-            <div class="panel-body">
+
+<!-- Nav tabs -->
+<ul id="player-setup-nav-tabs" class="nav nav-tabs" role="tablist">
+    <li>
+        <asp:LinkButton CssClass="active" runat="server" ID="lbtTabGeneral">General</asp:LinkButton>
+    </li>
+    <li>
+        <asp:LinkButton runat="server" ID="lbtTabLimits">Limits</asp:LinkButton>
+    </li>
+    <li>
+        <asp:LinkButton runat="server" ID="lbtTabLimitDetails">Limit Details</asp:LinkButton>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div id="player-setup-tab-contents" class="tab-content">
+    <asp:MultiView runat="server" ID="viewTabsContent" ActiveViewIndex="0">
+        <asp:View runat="server" ID="viewGeneral" >
+            <div role="tabpanel" class="tab-pane active" id="general">
                 <div class="form-group">
                     <label class="col-md-3 control-label">Name</label>
                     <div class="col-md-6">
@@ -75,16 +89,19 @@
                 <div class="form-group">
                     <div class="col-md-3"></div>
                     <div class="col-md-9">
-                        <asp:CheckBox ID="chkIsBettingLocked" runat="server" Text="Betting Locked" />
+                        <asp:CheckBox ID="chkIsBettingLocked" runat="server" Text="Bet Disabled" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-3"></div>
-                    <div class="col-md-3">
-                        <asp:CheckBox ID="chkCasino" runat="server" Text="Casino" />
+                    <div class="col-md-9">
+                        <asp:CheckBox ID="chkIsLocked" runat="server" Text="Disabled" />
                     </div>
-                    <div class="col-md-3">
-                        <asp:CheckBox ID="chkIsLocked" runat="server" Text="Locked" />
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+                        <asp:CheckBox ID="chkCasino" runat="server" Text="Casino" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -102,17 +119,15 @@
                     </div>
                 </div>
                 <div class="form-actions text-right pal">
-                    <asp:Button ID="btnSavePlayerInfo" runat="server" Text="Save Player Info" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnSavePlayerInfo" runat="server" Text="Save" CssClass="btn btn-primary" />
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="panel panel-grey">
-            <div class="panel-heading">Limits</div>
-            <div class="panel-body">
+            </div><!-- /#general-->
+        </asp:View><!-- /General-->
+
+        <asp:View runat="server" ID="viewLimits">
+            <div role="tabpanel" class="tab-pane active" id="limits">
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Template</label>
+                    <label class="col-md-3 control-label">Profile</label>
                     <div class="col-md-3">
                         <cc1:CDropDownList ID="ddlTemplates" runat="server" CssClass="form-control"
                             AutoPostBack="true" />
@@ -127,33 +142,6 @@
                     </div>
                     <div class="col-md-6"></div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Max Casino Credit</label>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtCasinoMaxAmount" runat="server" CssClass="form-control" onkeypress="javascript:return inputNumber(this,event, false);"
-                            onblur="javascript:formatNumber(this,2);" />
-                    </div>
-                    <div class="col-md-6"></div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Min Bet Phone</label>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtCreditMinBetPhone" runat="server" CssClass="form-control" onkeypress="javascript:return inputNumber(this,event, false);"
-                            onblur="javascript:formatNumber(this,2);" />
-                    </div>
-                    <div class="col-md-6"></div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Min Bet Internet</label>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtCreditMinBetInternet" runat="server" CssClass="form-control" onkeypress="javascript:return inputNumber(this,event, false);"
-                            onblur="javascript:formatNumber(this,2);" />
-                    </div>
-
-                </div>
-
-                <div class="mbxl"></div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Credit Limit</label>
                     <div class="col-md-3">
@@ -175,6 +163,33 @@
                         <asp:Button ID="btnTemporary" CssClass="btn btn-primary" runat="server" Text="Update Temporary" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Max Casino Credit</label>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtCasinoMaxAmount" runat="server" CssClass="form-control" onkeypress="javascript:return inputNumber(this,event, false);"
+                            onblur="javascript:formatNumber(this,2);" />
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Min Bet (Phone)</label>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtCreditMinBetPhone" runat="server" CssClass="form-control" onkeypress="javascript:return inputNumber(this,event, false);"
+                            onblur="javascript:formatNumber(this,2);" />
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Min Bet (Internet)</label>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtCreditMinBetInternet" runat="server" CssClass="form-control" onkeypress="javascript:return inputNumber(this,event, false);"
+                            onblur="javascript:formatNumber(this,2);" />
+                    </div>
+
+                </div>
+
+                <div class="mbxl"></div>
+
 
                 <div class="form-group">
                     <label class="col-md-3 control-label">Max Per Game</label>
@@ -196,10 +211,10 @@
                         <asp:Button ID="btnResetMunualy" Visible="false" CssClass="btn btn-primary" runat="server" Text="Reset Manually" />
                     </div>
                 </div>
-                
+
                 <div class="form-actions text-right pal">
                     <asp:Button ID="btnUpdateLimits" Visible="false" runat="server" Text="Update Limit" CssClass="btn btn-primary" />
-                    <asp:Button ID="btnSavePlayerLimitInfo" runat="server" Text="Save Limit" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnSavePlayerLimitInfo" runat="server" Text="Save" CssClass="btn btn-primary" />
                 </div>
 
                 <%--Hidden field value--%>
@@ -257,12 +272,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </div><!-- /#limits-->
+        </asp:View> <!-- /Limits-->
+
+        <asp:View runat="server" ID="viewLimitDetails">
+            <div role="tabpanel" class="tab-pane  active" id="limit-details">
+                <uc1:PlayerLimit runat="server" ID="ucPlayerLimit" />
+            </div><!-- /#limit-details-->
+        </asp:View><!-- /Limit Details-->
+    </asp:MultiView>
 </div>
 
-<uc1:PlayerLimit runat="server" ID="ucPlayerLimit" />
 
 <div class="form-group">
     <div class="col-md-12">

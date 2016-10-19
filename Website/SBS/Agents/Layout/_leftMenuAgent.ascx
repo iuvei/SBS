@@ -1,9 +1,19 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="_leftMenuAgent.ascx.vb" Inherits="SBS_Agents_Layout_leftMenuAgent" %>
+<%@ Import Namespace="System.Activities.Statements" %>
 <script runat="server">
     Public Function MenuActive(ByVal pageName As String) As String
         If Request.Url.AbsoluteUri.ToLower().EndsWith(pageName.ToLower()) Then
             Return "active"
         End If
+        Return String.Empty
+    End Function
+
+    Public Function MenuGroupActive(ByVal pageNames As String()) As String
+        For Each pageName As String In pageNames
+            If Request.Url.AbsoluteUri.ToLower().EndsWith(pageName.ToLower()) Then
+                Return "active"
+            End If
+        Next
         Return String.Empty
     End Function
 </script>
@@ -29,15 +39,155 @@
                     <span class="menu-title">Pending Bets</span>
                 </a>
             </li>
-            <li class="<%= MenuActive("Default.aspx?MenuType=use")%>">
+            <li class="has-children <%= MenuGroupActive({"Players.aspx", "Agents.aspx"})%>">
                 <a href="/SBS/Agents/Default.aspx?MenuType=user">
                     <i class="fa fa-child fa-fw">
                         <div class="icon-bg bg-orange"></div>
                     </i>
                     <span class="menu-title">User Management</span>
                 </a>
+                <ul class="sub-menu-agent nav">
+                    <li class="<%= MenuActive("Players.aspx")%>">
+                        <a href="/SBS/Agents/Management/Players.aspx">
+                            <i class="fa fa-user fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">Player</span>
+                        </a>
+                    </li>
+                    <li class="<%= MenuActive("Agents.aspx")%>">
+                        <a href="/SBS/Agents/Management/Agents.aspx">
+                            <i class="fa fa-users fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">Agent</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            
+            <li class="<%= MenuActive("History.aspx")%>">
+                <a href="/SBS/Agents/History.aspx">
+                    <i class="fa fa-calendar fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i>
+                    <span class="menu-title">Agent History</span>
+                </a>
+            </li>
+            <li class="<%= MenuActive("SelectPlayers.aspx")%>">
+                <a href="/SBS/Agents/SelectPlayers.aspx">
+                    <i class="fa fa-ge fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i>
+                    <span class="menu-title">Wagering for Player</span>
+                </a>
+            </li>
+            <li class="<%= MenuActive("TicketManagement.aspx")%>">
+                <a href="/SBS/Agents/TicketManagement.aspx">
+                    <i class="fa fa-openid fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i>
+                    <span class="menu-title">Ticket Management</span>
+                </a>
+            </li>
+            <li class="<%= MenuActive("AgentAccount.aspx")%>">
+                <a href="/SBS/Agents/AgentAccount.aspx">
+                    <i class="fa fa-heart-o fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i>
+                    <span class="menu-title">Account Status</span>
+                </a>
+            </li>
+            <li class="<%= MenuActive("ChangePassword.aspx")%>">
+                <a href="/SBS/Agents/ChangePassword.aspx">
+                    <i class="fa fa-key fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i>
+                    <span class="menu-title">Change Password</span>
+                </a>
+            </li>
+            <li class="<%= MenuActive("AgentMail.aspx")%>">
+                <a href="/SBS/Agents/AgentMail.aspx">
+                    <i class="fa fa-inbox fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i>
+                    <span class="menu-title">Mail / Message</span>
+                </a>
+            </li>
+            <li class="has-children <%= MenuGroupActive({"PlayersReports.aspx", "SubAgentReport.aspx", "Transactions.aspx", "IPReports.aspx", "PLReport.aspx", "AgentPositionReport.aspx", "headcount.aspx", "VolumnReport.aspx"})%>">
+                <a href="#">
+                    <i class="fa fa-file-text-o fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i>
+                    <span class="menu-title">Reports</span>
+                </a>
+                <ul class="sub-menu-agent nav">
+                    <li class="<%= MenuActive("PlayersReports.aspx")%>">
+                        <a href="/SBS/Agents/Management/PlayersReports.aspx">
+                            <i class="fa fa-money fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">Player Balance</span>
+                        </a>
+                    </li>
+                    <li class="<%= MenuActive("SubAgentReport.aspx")%>">
+                        <a href="/SBS/Agents/Management/SubAgentReport.aspx">
+                            <i class="fa fa-qrcode fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">Sub - Agent Balance</span>
+                        </a>
+                    </li>
+                    <li class="<%= MenuActive("Transactions.aspx")%>">
+                        <a href="/SBS/Agents/Transactions.aspx">
+                            <i class="fa fa-stumbleupon fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">Transaction History</span>
+                        </a>
+                    </li>
+                    <li class="<%= MenuActive("IPReports.aspx")%>">
+                        <a href="/SBS/Agents/Management/IPReports.aspx">
+                            <i class="fa fa-ticket fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">IP Reports</span>
+                        </a>
+                    </li>
+                    <li class="<%= MenuActive("PLReport.aspx")%>">
+                        <a href="/SBS/Agents/Management/PLReport.aspx">
+                            <i class="fa fa-tint fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">P/L Reports</span>
+                        </a>
+                    </li>
+                    <li class="<%= MenuActive("AgentPositionReport.aspx")%>">
+                        <a href="/SBS/Agents/Management/AgentPositionReport.aspx">
+                            <i class="fa fa-map-marker fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">Position Reports</span>
+                        </a>
+                    </li>
+                    <li class="<%= MenuActive("headcount.aspx")%>">
+                        <a href="/SBS/Agents/headcount.aspx">
+                            <i class="fa fa-lightbulb-o fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">Head Count Reports</span>
+                        </a>
+                    </li>
+                    <li class="<%= MenuActive("VolumnReport.aspx")%>">
+                        <a href="/SBS/Agents/VolumnReport.aspx">
+                            <i class="fa fa-lightbulb-o fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">Volumn Report</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <% If UserSession.AgentUserInfo.ShowBetTicker Then%>
             <li class="<%= MenuActive("LiveTicker.aspx")%>">
                 <a href="/SBS/Agents/LiveTicker.aspx">
@@ -48,7 +198,7 @@
                 </a>
             </li>
             <% End If%>
-            
+
             <% If UserSession.AgentUserInfo.ShowGameScheduleScores Then%>
             <li>
                 <a href="javascript:window.open('http://scores.sportsoptions.com/scores/archives.html','Game Schedule / Scores','width=900','height=600');">
@@ -69,122 +219,6 @@
                 </a>
             </li>
             <% End If%>
-            <li class="<%= MenuActive("PlayersReports.aspx")%>">
-                <a href="/SBS/Agents/Management/PlayersReports.aspx">
-                    <i class="fa fa-money fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Player Balance</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("SubAgentReport.aspx")%>">
-                <a href="/SBS/Agents/Management/SubAgentReport.aspx">
-                    <i class="fa fa-qrcode fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Sub - Agent Balance</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("History.aspx")%>">
-                <a href="/SBS/Agents/History.aspx">
-                    <i class="fa fa-calendar fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Agent History</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("Transactions.aspx")%>">
-                <a href="/SBS/Agents/Transactions.aspx">
-                    <i class="fa fa-stumbleupon fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Acct Transaction History</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("TicketManagement.aspx")%>">
-                <a href="/SBS/Agents/TicketManagement.aspx">
-                    <i class="fa fa-openid fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Ticket Management</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("SelectPlayers.aspx")%>">
-                <a href="/SBS/Agents/SelectPlayers.aspx">
-                    <i class="fa fa-ge fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Wagering for Player</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("IPReports.aspx")%>">
-                <a href="/SBS/Agents/Management/IPReports.aspx">
-                    <i class="fa fa-ticket fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">IP Reports</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("PLReport.aspx")%>">
-                <a href="/SBS/Agents/Management/PLReport.aspx">
-                    <i class="fa fa-tint fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">PL Reports</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("AgentPositionReport.aspx")%>">
-                <a href="/SBS/Agents/Management/AgentPositionReport.aspx">
-                    <i class="fa fa-map-marker fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Position Reports</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("headcount.aspx")%>">
-                <a href="/SBS/Agents/headcount.aspx">
-                    <i class="fa fa-lightbulb-o fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Head Count Reports</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("VolumnReport.aspx")%>">
-                <a href="/SBS/Agents/VolumnReport.aspx">
-                    <i class="fa fa-lightbulb-o fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Volumn Report</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("AgentAccount.aspx")%>">
-                <a href="/SBS/Agents/AgentAccount.aspx">
-                    <i class="fa fa-heart-o fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Acount Status</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("ChangePassword.aspx")%>">
-                <a href="/SBS/Agents/ChangePassword.aspx">
-                    <i class="fa fa-key fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Change Password</span>
-                </a>
-            </li>
-            <li class="<%= MenuActive("AgentMail.aspx")%>">
-                <a href="/SBS/Agents/AgentMail.aspx">
-                    <i class="fa fa-inbox fa-fw">
-                        <div class="icon-bg bg-orange"></div>
-                    </i>
-                    <span class="menu-title">Inbox Mail</span>
-                </a>
-            </li>
-
-            
-            
-            
         </ul>
     </div>
 </nav>

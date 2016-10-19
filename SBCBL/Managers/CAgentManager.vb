@@ -2354,6 +2354,30 @@ Namespace Managers
             Return oTable
         End Function
 
+        Public Function UpdatePasswordAgent(ByVal psAgentID As String, ByVal psPassword As String, ByVal psChangedBy As String) As Boolean
+            Dim bSuccess As Boolean = False
+            '' Get SubAgents
+            Dim oUpdate As New CSQLUpdateStringBuilder("Agents", String.Format("WHERE AgentID={0}", SQLString(psAgentID)))
+            Dim odbSQL As New CSQLDBUtils(SBC_CONNECTION_STRING, SBC2_CONNECTION_STRING)
+            Try
+                With oUpdate
+                    .AppendString("Password", SQLString(psPassword))
+                    .AppendString("PasswordLastUpdated", SQLString(Date.Now.ToUniversalTime))
+                End With
+                log.Debug("Update Agent's Password. SQL: " & oUpdate.SQL)
+                odbSQL.executeNonQuery(oUpdate, psChangedBy)
+                ' Clear cache
+                Dim oCache As New CacheUtils.CCacheManager()
+                oCache.ClearAgentInfo(psAgentID, "")
+                bSuccess = True
+            Catch ex As Exception
+                log.Error("Error trying to update Agent's Password. SQL: " & oUpdate.SQL, ex)
+            Finally
+                odbSQL.closeConnection()
+            End Try
+            Return bSuccess
+        End Function
+
 #End Region
 
     End Class

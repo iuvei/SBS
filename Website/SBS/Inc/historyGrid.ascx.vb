@@ -330,6 +330,7 @@ Namespace SBSWebsite
                         oItemRowSpan.Cells(4).Visible = False 'Player
                         oItemRowSpan.Cells(5).Visible = False 'Agent
 
+                        Dim ltrIfBet As Literal = CType(oItemRowSpan.FindControl("ltrIfBet"), Literal)
                         If ltrIfBet IsNot Nothing Then
                             ltrIfBet.Visible = False
                         End If

@@ -5,9 +5,9 @@
 <%@ Register Src="~/SBS/Inc/PlayerLimitManagement.ascx" TagName="PlayerManagement"
     TagPrefix="uc" %>
 
-<div class="panel panel-grey">
+<%--<div class="panel panel-grey">
     <div class="panel-heading">Player limit setting</div>
-    <div class="panel-body">
+    <div class="panel-body">--%>
         <div class="form-group">
             <div class="col-md-12">
                 <input type="button" class="btn btn-red pull-right ml4" value="Back To PlayerList" onclick="$('input[id$=btnCancelInfo]').click();" />
@@ -87,8 +87,8 @@
                 <asp:Button runat="server" ID="btnUpdateLimitBottom" CssClass="btn btn-primary pull-right" Text="Save setting" />
             </div>
         </div>
-    </div>
-</div>
+<%--    </div>
+</div>--%>
 
 <script>
     $(document).ready(function () {
