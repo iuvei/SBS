@@ -123,15 +123,16 @@
 
                                         <asp:Panel ID="noticeStraight" runat="server" Visible="false" CssClass="col-lg-4">
                                             <div class="row">
-                                                <div class="col-md-12">
-                                                    <asp:RadioButton ID="rdRiskAmount" runat="server" GroupName="wager" Checked="true" onclick='showRisk(true)' />
-                                                    <asp:Label ID="lblRiskAmmount" runat="server" Text="Risk Amount"></asp:Label>
+                                                <span class="fz12 bold pdT10 pdL25">Please enter an amount, then press Submit.</span>
+                                                <div class="col-md-12 text-center">
+                                                    <asp:RadioButton ID="rdRiskAmount" Visible="False" runat="server" GroupName="wager" Checked="true" onclick='showRisk(true)' />
+                                                    <asp:Label ID="lblRiskAmmount" runat="server" CssClass="fz14 bold clr-red" Text="Amount::"></asp:Label>
                                                     <%--<asp:RadioButton ID="rdWinAmount" runat="server" GroupName="wager" onclick='showRisk(false)' /> To Win Amount --%>
                                                     <asp:TextBox ID="txtBet" runat="server" Text='<%# IIf(SBCBL.std.SafeRound(Container.DataItem.RiskAmount)=0,"",SBCBL.std.SafeRound(Container.DataItem.RiskAmount))%>'
-                                                        CssClass="form-control" Style="display: inline-block;" MaxLength="10" Width="90" onkeypress="javascript:return inputNumber(this,event, false);" />
+                                                        CssClass="form-control input-field-2 w180px h30px" Style="display: inline-block;" MaxLength="10" onkeypress="javascript:return inputNumber(this,event, false);" />
                                                     <asp:TextBox ID="txtWin" runat="server" Text='<%# IIf(SBCBL.std.SafeRound(Container.DataItem.WinAmount)=0,"",SBCBL.std.SafeRound(Container.DataItem.WinAmount))%>'
                                                         CssClass="form-control" Style="display: none;" MaxLength="10" Width="90" onkeypress="javascript:return inputNumber(this,event, false);" />
-                                                    <asp:Button ID="btnContinue" runat="server" Text="" CssClass="btn btn-dark" Style="margin-left: 10px;"
+                                                    <asp:Button ID="btnContinue" runat="server" Text="" CssClass="btn btn-dark button-style-2 w110px h24px" Style="margin-left: 20px;"
                                                         OnClick="btnPreview_Click" />
                                                     <asp:Button ID="btnCancel" Visible="false" OnClick="btnClearWagers_Click" runat="server" Text="" Style="margin-left: 10px;" CssClass="btn btn-red"
                                                         ToolTip="Cancel Your Wager" />
@@ -139,7 +140,7 @@
                                             </div>
                                         </asp:Panel>
 
-                                        <div class="mgT10">
+                                        <div class="mgT10" runat="server" id="pnWagerParlay">
                                             <table class="tbl-round-robin w180px" id="tblRoundRobin" visible="False" clientidmode="Static" runat="server">
                                                 <tr class="round-robin-head">
                                                     <td colspan="2">Wager Type</td>

@@ -201,10 +201,10 @@
             </div>
         </div>
         <div class="ly-w-1:2 left pdLR13 text-center">
-            <div class="button-style-6 w220px center">
+            <%--<div class="button-style-6 w220px center">
                 <asp:Button ID="btnWinReverse" CssClass="" CommandName="Win Reverse" Enabled="False" runat="server" Text="Win Reverse" />
-            </div>
-            <div class="button-style-6 w220px center mgT5">
+            </div>--%>
+            <div class="button-style-6 w220px center">
                 <asp:Button ID="btnContinueReverse" CssClass="" CommandName="Reverse" runat="server" Text="Action Reverse" OnCommand="btnContinueIfBetOrReverse_Command" />
             </div>
         </div>

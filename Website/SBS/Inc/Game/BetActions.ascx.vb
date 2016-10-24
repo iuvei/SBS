@@ -38,6 +38,7 @@ Partial Class SBS_Inc_Game_BetActions
     Private _Description As String = ""
     Public _contextGame As Integer = 1
     Public _context1H As Integer = 1
+    Public _bettingError As String = ""
 
 #Region "Properties"
     Private Function UserType() As EUserType
@@ -2283,12 +2284,12 @@ PropGame:
                     If chkAwayTeamTotalOver.Checked OrElse txtMoneyAwayTeamTotalOver.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyAwayTeamTotalOver.Text.Substring(2).Contains("+"), txtMoneyAwayTeamTotalOver, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyAwayTeamTotalOver.Text.Substring(2).Contains("+"), txtMoneyAwayTeamTotalOver, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "TeamTotalPoints", "AWAY", SafeDouble(oData("AwayTeamTotalPoints")), GetMoneyGameIncreaseTotal(SafeString(oData("GameID")), oData("GameType"), "Away", oData("Context"), "TotalPoints", SafeDouble(oData("AwayTeamTotalPointsOverMoney")), SafeString(oData("GameLineID")), "True"),
                                   SafeString(oData("IsCircle")), "True", "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2304,12 +2305,12 @@ PropGame:
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
 
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyAwayTeamTotalUnder.Text.Substring(2).Contains("+"), txtMoneyAwayTeamTotalUnder, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyAwayTeamTotalUnder.Text.Substring(2).Contains("+"), txtMoneyAwayTeamTotalUnder, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "TeamTotalPoints", "AWAY", SafeDouble(oData("AwayTeamTotalPoints")), GetMoneyGameIncreaseTotal(SafeString(oData("GameID")), oData("GameType"), "Away", oData("Context"), "TotalPoints", SafeDouble(oData("AwayTeamTotalPointsOverMoney")), SafeString(oData("GameLineID")), "True"),
                                   SafeString(oData("IsCircle")), "False", "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2323,12 +2324,12 @@ PropGame:
                     If chkHomeTeamTotalOver.Checked OrElse txtMoneyHomeTeamTotalOver.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyHomeTeamTotalOver.Text.Substring(2).Contains("+"), txtMoneyHomeTeamTotalOver, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyHomeTeamTotalOver.Text.Substring(2).Contains("+"), txtMoneyHomeTeamTotalOver, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "TeamTotalPoints", "HOME", SafeDouble(oData("HomeTeamTotalPoints")), GetMoneyGameIncreaseTotal(SBCBL.std.SafeString(oData("GameID")), oData("GameType"), "HOME", oData("Context"), "TeamTotalPoints", SBCBL.std.SafeDouble(oData("HomeTeamTotalPointsUnderMoney")), SBCBL.std.SafeString(oData("GameLineID")), "False"),
                                   SafeString(oData("IsCircle")), "True", "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2343,12 +2344,12 @@ PropGame:
                     If chkHomeTeamTotalUnder.Checked OrElse txtMoneyHomeTeamTotalUnder.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyHomeTeamTotalUnder.Text.Substring(2).Contains("+"), txtMoneyHomeTeamTotalUnder, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyHomeTeamTotalUnder.Text.Substring(2).Contains("+"), txtMoneyHomeTeamTotalUnder, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "TeamTotalPoints", "HOME", SafeDouble(oData("HomeTeamTotalPoints")), GetMoneyGameIncreaseTotal(SBCBL.std.SafeString(oData("GameID")), oData("GameType"), "HOME", oData("Context"), "TeamTotalPoints", SBCBL.std.SafeDouble(oData("HomeTeamTotalPointsOverMoney")), SBCBL.std.SafeString(oData("GameLineID")), "False"),
                                   SafeString(oData("IsCircle")), "False", "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2363,12 +2364,12 @@ PropGame:
                     If chkSelectAwaySpread.Checked OrElse txtMoneyAwaySpread.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyAwaySpread.Text.Substring(8).Contains("+"), txtMoneyAwaySpread, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyAwaySpread.Text.Substring(8).Contains("+"), txtMoneyAwaySpread, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "Spread", "AWAY", SafeDouble(oData("AwaySpread")), GetMoneyGameIncreaseSpreadML(SafeString(oData("GameID")), oData("GameType"), "Away", oData("Context"), "Spread", SafeDouble(oData("AwaySpreadMoney")), SafeString(oData("GameLineID")), SafeDouble(oData("AwaySpread")), SafeDouble(oData("HomeSpread"))),
                                   SafeString(oData("IsCircle")), getFavout(SafeDouble(oData("AwaySpread")), SafeDouble(oData("HomeSpread")), "Away"), "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2412,12 +2413,12 @@ PropGame:
                     If chkSelectHomeSpread.Checked OrElse txtMoneyHomeSpread.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyHomeSpread.Text.Substring(8).Contains("+"), txtMoneyHomeSpread, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyHomeSpread.Text.Substring(8).Contains("+"), txtMoneyHomeSpread, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "Spread", "AWAY", SafeDouble(oData("HomeSpread")), GetMoneyGameIncreaseSpreadML(SBCBL.std.SafeString(oData("GameID")), oData("GameType"), "Home", oData("Context"), "Spread", SBCBL.std.SafeDouble(oData("HomeSpreadMoney")), SBCBL.std.SafeString(oData("GameLineID")), SBCBL.std.SafeDouble(oData("AwaySpread")), SBCBL.std.SafeDouble(oData("HomeSpread"))),
                                   SafeString(oData("IsCircle")), getFavout(SBCBL.std.SafeDouble(oData("AwaySpread")), SBCBL.std.SafeDouble(oData("HomeSpread")), "Home"), "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2434,12 +2435,12 @@ PropGame:
                     If chkSelectHomeMLine.Checked OrElse txtMoneyHomeMLine.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyHomeMLine.Text.Substring(2).Contains("+"), txtMoneyHomeMLine, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyHomeMLine.Text.Substring(2).Contains("+"), txtMoneyHomeMLine, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "MoneyLine", "HOME", 0, GetMoneyGameIncreaseSpreadML(SBCBL.std.SafeString(oData("GameID")), oData("GameType"), "Home", oData("Context"), "MoneyLine", SBCBL.std.SafeDouble(oData("HomeMoneyLine")), SBCBL.std.SafeString(oData("GameLineID")), SBCBL.std.SafeDouble(oData("AwaySpread")), SBCBL.std.SafeDouble(oData("HomeSpread"))),
                                   SafeString(oData("IsCircle")), getFavout(SBCBL.std.SafeDouble(oData("AwaySpread")), SBCBL.std.SafeDouble(oData("HomeSpread")), "Home"), "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "False")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2456,12 +2457,12 @@ PropGame:
                     If chkSelectAwayMLine.Checked OrElse txtMoneyAwayMLine.Text <> "" Then 'AndAlso Not String.IsNullOrEmpty(txtMoneyAwayMLine.Text) Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyAwayMLine.Text.Substring(2).Contains("+"), txtMoneyAwayMLine, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyAwayMLine.Text.Substring(2).Contains("+"), txtMoneyAwayMLine, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "MoneyLine", "AWAY", 0, GetMoneyGameIncreaseSpreadML(SBCBL.std.SafeString(oData("GameID")), oData("GameType"), "Away", oData("Context"), "MoneyLine", SBCBL.std.SafeDouble(oData("AwayMoneyLine")), SBCBL.std.SafeString(oData("GameLineID")), SBCBL.std.SafeDouble(oData("AwaySpread")), SBCBL.std.SafeDouble(oData("HomeSpread"))),
                                   SafeString(oData("IsCircle")), getFavout(SBCBL.std.SafeDouble(oData("AwaySpread")), SBCBL.std.SafeDouble(oData("HomeSpread")), "Away"), "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "False")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2478,12 +2479,12 @@ PropGame:
                     If chkSelectAwayTotal.Checked OrElse txtMoneyAwayTotal.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyAwayTotal.Text.Substring(8).Contains("+"), txtMoneyAwayTotal, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyAwayTotal.Text.Substring(8).Contains("+"), txtMoneyAwayTotal, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "TotalPoints", "AWAY", SafeDouble(oData("TotalPoints")), GetMoneyGameIncreaseTotal(SBCBL.std.SafeString(oData("GameID")), oData("GameType"), "away", oData("Context"), "TotalPoints", SBCBL.std.SafeDouble(oData("TotalPointsOverMoney")), SBCBL.std.SafeString(oData("GameLineID")), "False"),
                                   SafeString(oData("IsCircle")), "False", "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "False")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2498,12 +2499,12 @@ PropGame:
                     If chkSelectHomeTotal.Checked OrElse txtMoneyHomeTotal.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyHomeTotal.Text.Substring(8).Contains("+"), txtMoneyHomeTotal, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyHomeTotal.Text.Substring(8).Contains("+"), txtMoneyHomeTotal, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "TotalPoints", "HOME", SafeDouble(oData("TotalPoints")), GetMoneyGameIncreaseTotal(SBCBL.std.SafeString(oData("GameID")), oData("GameType"), "Home", oData("Context"), "TotalPoints", SBCBL.std.SafeDouble(oData("TotalPointsUnderMoney")), SBCBL.std.SafeString(oData("GameLineID")), "False"),
                                   SafeString(oData("IsCircle")), "False", "", ValidDescription(SBCBL.std.SafeString(oData("Description"))), "", "False")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -2519,12 +2520,12 @@ PropGame:
                     If chkSelectDraw.Checked OrElse txtMoneyDraw.Text <> "" Then
                         Dim oData = oGameLineManager.GetGameLinesByID(sGameLineID)
                         If BetTypeActive.Contains("If ") Then
-                            Dim bettingError As String = SBSBetting(lblMoneyDraw.Text.Substring(2).Contains("+"), txtMoneyDraw, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
+                            _bettingError = SBSBetting(lblMoneyDraw.Text.Substring(2).Contains("+"), txtMoneyDraw, SelectedPlayerID, SafeString(oData("GameID")), sGameLineID, BetTypeActive, SafeString(oData("GameType")), SafeString(oData("BookMaker")),
                                   SafeString(oData("Context")), SafeString(oData("GameDate")), SafeString(oData("AwayTeam")), SafeString(oData("HomeTeam")), SafeString(oData("AwayRotationNumber")),
                                   SafeString(oData("HomeRotationNumber")), SafeString(oData("AwayPitcher")), SafeString(oData("HomePitcher")), SafeString(oData("AwayPitcherRightHand")),
                                   SafeString(oData("HomePitcherRightHand")), "Draw", "", 0, GetMoneyGameIncrease(SafeString(oData("GameID")), oData("GameType"), "Away", oData("Context"), "Draw", SafeDouble(oData("DrawMoneyLine")), ""),
                                   SafeString(oData("IsCircle")), "", "", ValidDescription(SafeString(oData("Description"))), "", "")
-                            If bettingError.Length > 0 Then
+                            If _bettingError.Length > 0 Then
                                 Return False
                             End If
                         Else
@@ -3012,18 +3013,34 @@ PropGame:
     End Sub
 
     Protected Sub btnContinue_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+
         If UserSession.SelectedTicket(SelectedPlayerID).Tickets.Count = 0 OrElse UserSession.SelectedTicket(SelectedPlayerID).Tickets(0).TicketBets.Count = 1 Then
             Select Case BetTypeActive
                 Case _sParlay, _sReverse, _sTeaser
-                    ClientAlert("You have to select at least 2 selections", True)
+                    ClientAlert("You have to select at least 2 selections" & BetTypeActive, True)
                     Return
 
             End Select
         End If
         ViewState("Title") = Nothing
         If Not BetStraight() Then
+            If _bettingError.Length > 0 Then
+                ClientAlert(_bettingError, True)
+            End If
             Return
         End If
+
+        If BetTypeActive.Contains("If ") Then
+            Select Case UserSession.SelectedTicket(SelectedPlayerID).Tickets.Count
+                Case < 2
+                    ClientAlert("You have to select at least 2 selections", True)
+                    Return
+                Case > 2
+                    ClientAlert("Your maximum selection allowed is 2 for If Bet", True)
+                    Return
+            End Select
+        End If
+        
         If UserSession.SelectedTicket(SelectedPlayerID).Tickets.Count = 0 Then
             Select Case BetTypeActive
                 Case __BetIfAll, _sStraight, _sBetTheBoard

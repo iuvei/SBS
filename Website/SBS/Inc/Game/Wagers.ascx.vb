@@ -299,12 +299,7 @@ Namespace SBSWebsite
                             Dim lbtDeleteTicket As LinkButton = CType(oItemTicketBet.FindControl("lbtDeleteTicket"), LinkButton)
                             lbtDeleteTicket.Visible = SafeBoolean(IIf(oTicket.TicketBets.Count() > 2, True, False))
 
-                            If oTicket.RiskAmount <= 0 Then
-                                Dim tdRisk As HtmlTableCell = CType(oItemTicketBet.FindControl("tdRisk"), HtmlTableCell)
-                                Dim tdWin As HtmlTableCell = CType(oItemTicketBet.FindControl("tdWin"), HtmlTableCell)
-                                tdRisk.InnerText = ""
-                                tdWin.InnerText = ""
-                            Else
+                            If oTicket.RiskAmount > 0 Then
                                 Dim tdActions As HtmlTableCell = CType(oItemTicketBet.FindControl("tdActions"), HtmlTableCell)
                                 tdActions.Visible = False
                             End If
@@ -314,17 +309,33 @@ Namespace SBSWebsite
                             Else
                                 sBackColor = "#f59596"
                             End If
-                        Case sBetType.Contains("If") Or sBetType.Contains("Reverse")
+
+                            Dim lbtDeleteTicket As LinkButton = CType(oItemTicketBet.FindControl("lbtDeleteTicket"), LinkButton)
+                            lbtDeleteTicket.Visible = False
+
+                        Case sBetType.Contains("If")  Or sBetType.Contains("Reverse")
                             If (alternateCount Mod 2) = 0 Then
-                                sBackColor = "#efefef"
+                                sBackColor = "#fffff"
                             Else
-                                sBackColor = "#ffffff"
+                                sBackColor = "#efefef"
                             End If
+
+                            Dim lbtDeleteTicket As LinkButton = CType(oItemTicketBet.FindControl("lbtDeleteTicket"), LinkButton)
+                            lbtDeleteTicket.Visible = False
+                        
                         Case Else
                             sBackColor = "#ffffff"
                     End Select
 
                     itemTicketContent.Style.Add("background", sBackColor)
+
+                    '  Hide Risk/Win if equal zero
+                    If oTicket.RiskAmount <= 0 Then
+                        Dim tdRisk As HtmlTableCell = CType(oItemTicketBet.FindControl("tdRisk"), HtmlTableCell)
+                        Dim tdWin As HtmlTableCell = CType(oItemTicketBet.FindControl("tdWin"), HtmlTableCell)
+                        tdRisk.InnerText = ""
+                        tdWin.InnerText = ""
+                    End If
 
                     '' show ticket number   
                     If oTicket.TicketNumber > 0 Then
@@ -348,8 +359,6 @@ Namespace SBSWebsite
                 nTotalRisk += oTicket.RiskAmount
                 nTotalWin += oTicket.WinAmount
                 nIndex += 1
-
-                
 
             End While
 
@@ -383,14 +392,18 @@ Namespace SBSWebsite
 
         End Sub
 
-        Protected Sub btnMainMenu_Click(sender As Object, e As EventArgs) Handles btnMainMenu.Click
-            Dim selectedBetTypeActive As String = UCase(BetTypeActive)
+        Private Sub WagerMenuRedirect()
+            Dim selectedBetTypeActive As String = SafeString(Session("BetTypeActive"))
 
-            If ((selectedBetTypeActive = "REVERSE") Or (selectedBetTypeActive = "IF WIN") Or (selectedBetTypeActive = "IF WIN OR PUSH")) Then
+            If ((selectedBetTypeActive.Equals(_sReverse)) Or (selectedBetTypeActive.Contains("If ")) ) Then
                 Response.Redirect("Default.aspx?bettype=IfBetReverse")
             Else
-                Response.Redirect(String.Format("Default.aspx?bettype={0}", BetTypeActive))
+                Response.Redirect(String.Format("Default.aspx?bettype={0}", selectedBetTypeActive))
             End If
+        End Sub
+
+        Protected Sub btnMainMenu_Click(sender As Object, e As EventArgs) Handles btnMainMenu.Click
+            WagerMenuRedirect()
         End Sub
 
         Protected Sub rptTickets_ItemCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.RepeaterCommandEventArgs) Handles rptTickets.ItemCommand
@@ -843,7 +856,9 @@ Namespace SBSWebsite
                     ElseIf BetTypeActive.Equals(_sReverse, StringComparison.CurrentCultureIgnoreCase) OrElse BetTypeActive.Equals(_sTeaser, StringComparison.CurrentCultureIgnoreCase) Then
                         CType(e.Item.FindControl("noticeStraight"), Panel).Visible = True
                         CType(e.Item.FindControl("noticeParlay"), Panel).Visible = False
-                        btnContinue.Visible = False
+                        CType(e.Item.FindControl("pnWagerParlay"), HtmlControl).Visible = False
+                        btnContinue.Text = "Submit"
+                        btnContinue.Visible = True
                     Else
                         'CType(e.Item.FindControl("noticeStraight"), Panel).Visible = True
                         CType(e.Item.FindControl("noticeParlay"), Panel).Visible = False
@@ -905,9 +920,12 @@ Namespace SBSWebsite
                             UserSession.SelectedTicket(SelectedPlayerID).RemoveTickets(oID(0))
 
                         End If
-                    Else
-
                     End If
+
+                    If UserSession.SelectedTicket(SelectedPlayerID).Tickets.Count = 0 Then
+                        WagerMenuRedirect()
+                    End If
+
                 'Try
                 '    If UserSession.SelectedTicket(SelectedPlayerID).Tickets.Count = 0 Then
                 '        e.Item.FindControl("trTicketBet").Visible = False
@@ -1265,7 +1283,7 @@ Namespace SBSWebsite
                             Continue For
                         End If
 
-                        If UCase(oTicket.TicketOption) <> "PARLAY" AndAlso ( (oTicket.TicketRoundRobinOption Is Nothing) OrElse (Not oTicket.TicketRoundRobinOption.Any()) )   Then
+                        If UCase(oTicket.TicketType).Equals("PARLAY") AndAlso UCase(oTicket.TicketOption) <> "PARLAY" AndAlso ( (oTicket.TicketRoundRobinOption Is Nothing) OrElse (Not oTicket.TicketRoundRobinOption.Any()) )   Then
                             Throw New CTicketException("You must select at least one option of the round robin.")
                         End If
 
