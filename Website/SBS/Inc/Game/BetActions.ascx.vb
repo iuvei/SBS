@@ -3436,16 +3436,20 @@ PropGame:
                 AndAlso (IsFootball(psGameType) OrElse IsBasketball(psGameType))
 
                 If bBuyPoint Then
-
+                    Dim nSpread As Double
+                    Dim nJuice As Double
                     ''Single Parlay
-                    Dim oDicItem As New DictionaryEntry(SafeString(pnJuice) & "   " & SafeString(If(pnBetPoint = -100, 100, pnBetPoint)), "")
+                    nJuice = If(pnBetPoint = -100, 100, pnBetPoint)
+                    Dim oDicItem As New DictionaryEntry(SafeString(IIf(pnJuice > 0, "+" & pnJuice, pnJuice)) & "   " & SafeString(IIf(nJuice > 0, "+" & nJuice, nJuice)), "")
                     olstDic.Add(oDicItem)
 
                     If IsFootball(psGameType) Then
                         '' OFF 3: From +3 to +3 1/2 | From -3 to -2 1/2
                         '' ON 3: From +2 1/2 to +3 | From -3 1/2 to -3
                         If pnJuice = 3 OrElse pnJuice = -3 OrElse pnJuice = 2.5 OrElse pnJuice = -3.5 Then
-                            oDicItem = New DictionaryEntry(SafeString(pnJuice + 0.5) & " (" & SafeString(pnBetPoint - 10) & ")", "0.5|-10")
+                            nSpread = pnJuice + 0.5
+                            nJuice = pnBetPoint - 10
+                            oDicItem = New DictionaryEntry(SafeString(IIf(nSpread > 0, "+" & nSpread, nSpread)) & " (" & SafeString(IIf(nJuice > 0, "+" & nJuice, nJuice)) & ")", "0.5|-10")
                             olstDic.Add(oDicItem)
                         End If
 
@@ -3458,7 +3462,10 @@ PropGame:
                             If UCase(psBetType) = "TOTALPOINTS" AndAlso bTotalOver Then
                                 nAddpoint = -nPoint
                             End If
-                            oDicItem = New DictionaryEntry(SafeString(pnJuice + nAddpoint) & "   " & SafeString(pnBetPoint + (-nPoint * 20)),
+                            nSpread = pnJuice + nAddpoint
+                            nJuice = pnBetPoint + (-nPoint * 20)
+
+                            oDicItem = New DictionaryEntry(SafeString(IIf(nSpread > 0, "+" & nSpread, nSpread)) & "   " & SafeString(IIf(nJuice > 0, "+"& nJuice, nJuice)),
                                                            SafeString(nAddpoint) & "|" & SafeString(-nPoint * 20))
                             olstDic.Add(oDicItem)
                         Next
