@@ -22,7 +22,7 @@
         </div>
 
         <asp:DataGrid ID="dgSubPlayers" runat="server" Width="100%" AutoGenerateColumns="false" Font-Size="12px"
-            CellPadding="2" CellSpacing="2" CssClass="table table-hover table-bordered">
+            CellPadding="2" CellSpacing="2" CssClass="table table-hover table-bordered table-striped">
             <HeaderStyle CssClass="tableheading" HorizontalAlign="Center" />
             <ItemStyle HorizontalAlign="Left" Wrap="false" />
             <AlternatingItemStyle HorizontalAlign="Left" Wrap="false" />

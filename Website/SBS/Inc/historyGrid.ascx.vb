@@ -13,6 +13,7 @@ Namespace SBSWebsite
         Private TotalRisk As Double = 0
         Private TotalWin As Double = 0
         Private TotalBalance As Double = 0
+        Private TotalAmount As Double = 0
 
         Private Phone_Type As String = "Phone"
         Private __CurrentTicketID As String = "__CURRENT"
@@ -75,6 +76,7 @@ Namespace SBSWebsite
             grdHistory.Columns(1).Visible = Not ShowPlayerName
             grdHistory.Columns(4).Visible = ShowPlayerName
             grdHistory.Columns(12).Visible = ShowPlayerName
+            grdHistory.Columns(13).Visible = ShowPlayerName
             grdHistory.Columns(5).Visible = Not String.IsNullOrEmpty(AgentName)
             grdHistory.DataBind()
 
@@ -352,11 +354,11 @@ Namespace SBSWebsite
             Dim oTotalItem As DataGridItem = grdHistory.Items(grdHistory.Items.Count - 1)
             oTotalItem.Cells(1).Text = ""
 
-            'If ShowPlayerName Then
-            '    oTotalItem.Cells(1).ColumnSpan = 1
+            If ShowPlayerName Then
+                oTotalItem.Cells(12).ColumnSpan = 1
             'Else
             '    oTotalItem.Cells(1).ColumnSpan = 1
-            'End If
+            End If
 
             'oTotalItem.Cells(1).Visible = False
             'oTotalItem.Cells(2).Visible = False
@@ -375,8 +377,8 @@ Namespace SBSWebsite
                     e.Item.Cells(2).Text = "Total"
                     e.Item.Cells(8).Text = FormatNumber(Me.TotalBets, 0) & " BETS"
                     e.Item.Cells(10).Text = FormatNumber(Me.TotalRisk + SafeDouble(oTicketBet("RiskAmount")), 2)
-                    e.Item.Cells(11).Text = FormatNumber(Me.TotalWin + SafeDouble(oTicketBet("WinAmount")), 2)
-                    'e.Item.Cells(12).Text = SafeString(IIf(Me.TotalBalance >= 0, "", "-")) & FormatNumber(Math.Abs(Me.TotalBalance), Me.RoundMidPoint)
+                    'e.Item.Cells(11).Text = FormatNumber(Me.TotalWin + SafeDouble(oTicketBet("WinAmount")), 2)
+                    e.Item.Cells(12).Text = SafeString(IIf(Me.TotalBalance >= 0, "", "-")) & FormatNumber(Math.Abs(Me.TotalBalance), Me.RoundMidPoint)
                 Else
                     Dim sTicketType = GetTicketType(oTicketBet)
 
@@ -429,20 +431,17 @@ Namespace SBSWebsite
                     End If
                 End If
 
-                ''total bet
-                Dim sTicketID As String = CType(e.Item.FindControl("hfTicketID"), HiddenField).Value
-
+                
                 ''risk/win
                 Dim nRisk As Double = SafeRound(oTicketBet("RiskAmount"))
                 Dim nWin As Double = SafeRound(oTicketBet("WinAmount"))
 
-                If Me.__CurrentTicketID <> sTicketID Then
-                    Me.__CurrentTicketID = sTicketID
-                    Me.TotalBets += 1
-
-                    Me.TotalRisk += nRisk
-                    Me.TotalWin += nWin
-                End If
+               ''amount
+                    Dim nAmount As Double = SafeRound(oTicketBet("NetAmount")) - nRisk
+                    If nAmount < 0 Then
+                        CType(e.Item.FindControl("lblAmount"), Label).ForeColor = Drawing.Color.Red
+                    End If
+                    CType(e.Item.FindControl("lblAmount"), Label).Text = SafeString(IIf(nAmount >= 0, "", "-")) & FormatNumber(Math.Abs(nAmount), Me.RoundMidPoint)
 
                 Dim sScores As String = "<b>{0}</b> - <b>{1}</b>"
                 Select Case LCase(SafeString(oTicketBet("Context")))
@@ -471,10 +470,20 @@ Namespace SBSWebsite
                         sScores = ""
                 End Select
 
-                CType(e.Item.FindControl("lblScore"), Label).Text = sScores
+                    CType(e.Item.FindControl("lblScore"), Label).Text = sScores
 
-                ''description
-                Dim sHomeTeam As String = SafeString(oTicketBet("HomeTeam")) '& " - H"
+                    ''total bet
+                    Dim sTicketID As String = CType(e.Item.FindControl("hfTicketID"), HiddenField).Value
+                    If Me.__CurrentTicketID <> sTicketID Then
+                        Me.__CurrentTicketID = sTicketID
+                        Me.TotalBets += 1
+                        Me.TotalBalance += nAmount
+                        Me.TotalRisk += nRisk
+                        Me.TotalWin += nWin
+                    End If
+
+                    ''description
+                    Dim sHomeTeam As String = SafeString(oTicketBet("HomeTeam")) '& " - H"
                 Dim sAwayTeam As String = SafeString(oTicketBet("AwayTeam")) '& " - A"
                 'If SafeString(oTicketBet("HomePitcher_TicketBets")) <> "" AndAlso SafeString(oTicketBet("AwayPitcher_TicketBets")) <> "" Then
                 '    sHomeTeam += "<br/><span style='color:red'>" & SafeString(oTicketBet("AwayPitcher_TicketBets")) & " / " & SafeString(oTicketBet("HomePitcher_TicketBets")) & "</span>"

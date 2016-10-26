@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="historyGrid.ascx.vb"
     Inherits="SBSWebsite.historyGrid" %>
 <asp:DataGrid ID="grdHistory" runat="server" Width="100%"  AutoGenerateColumns="false"  
-     CssClass="table table-hover table-bordered table-style-10" align="center">
+     CssClass="table table-bordered table-style-10" align="center">
     <HeaderStyle CssClass="tableheading row-caption" HorizontalAlign="Center"  />
     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" CssClass="row-content" />
     <AlternatingItemStyle HorizontalAlign="Center" />
@@ -95,6 +95,11 @@
             <ItemStyle Width="10%"></ItemStyle>
             <ItemTemplate>
                 <asp:Label ID="lblWin" runat="server" />
+            </ItemTemplate>
+        </asp:TemplateColumn>
+        <asp:TemplateColumn HeaderText="Amount" ItemStyle-Wrap="false">
+            <ItemTemplate>
+                <asp:Label ID="lblAmount" runat="server" />
             </ItemTemplate>
         </asp:TemplateColumn>
         <asp:TemplateColumn HeaderText="Score (A/H)" ItemStyle-HorizontalAlign="Center"

@@ -26,7 +26,7 @@
                             <h2>
                                 <asp:Literal ID="lblAgentWeekly" runat="server" Text=""></asp:Literal></h2>
                             <asp:DataGrid ID="dgSubPlayers" runat="server" AutoGenerateColumns="false"
-                                OnItemDataBound="dgSubPlayers_ItemDataBound" CssClass="table table-hover table-bordered">
+                                OnItemDataBound="dgSubPlayers_ItemDataBound" CssClass="table table-hover table-bordered table-striped">
                                 <HeaderStyle CssClass="tableheading" HorizontalAlign="Center" />
                                 <Columns>
                                     <asp:TemplateColumn HeaderText="Player" ItemStyle-Width="230">

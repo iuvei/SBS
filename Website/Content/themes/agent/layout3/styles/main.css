@@ -7451,3 +7451,7 @@ ul.chats li.out .message {
     border-color: #4b5d67;
     padding: 20px !important;
 }
+/* */
+.row-total {
+    font-weight: bold;
+}
