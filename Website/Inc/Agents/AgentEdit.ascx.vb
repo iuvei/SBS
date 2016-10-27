@@ -147,9 +147,9 @@ Namespace SBSAgents
 #Region "Edit Agent"
 
         Private Function checkCondition() As Boolean
-            If SafeString(txtName.Text) = "" Then
+            If SafeString(txtLogin.Text) = "" Then
                 ClientAlert("Login Name Is Required", True)
-                txtName.Focus()
+                txtLogin.Focus()
                 Return False
             End If
 

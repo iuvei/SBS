@@ -1312,7 +1312,9 @@ Namespace Managers
 
                         For Each oDRSubPlayer As DataRow In oSubPlayers.Select("", "Login")
                             oRow = oTable.NewRow
-                            oRow("Player") = String.Format("{0}({1})", SafeString(oDRSubPlayer("Login")), SafeString(oDRSubPlayer("Name")))
+                            Dim sPlayerName As String = SafeString(oDRSubPlayer("Name"))
+                            oRow("Player") = String.Format("{0}{1}", SafeString(oDRSubPlayer("Login")), If(sPlayerName.Trim().Length > 0, "("& sPlayerName &")", ""))
+                            'oRow("Player") = String.Format("{0}({1})", SafeString(oDRSubPlayer("Login")), SafeString(oDRSubPlayer("Name")))
                             oRow("PlayerID") = SafeString(oDRSubPlayer("PlayerID"))
                             oRow("CreditMaxAmount") = SafeString(oDRSubPlayer("CreditMaxAmount"))
                             oRow("BalanceAmount") = SafeString(oDRSubPlayer("BalanceAmount"))
@@ -1455,7 +1457,8 @@ Namespace Managers
 
                     For Each oDRSubPlayer As DataRow In oSubPlayers.Select("", "Login")
                         oRow = oTable.NewRow
-                        oRow("Player") = String.Format("{0}({1})", SafeString(oDRSubPlayer("Login")), SafeString(oDRSubPlayer("Name")))
+                        Dim sPlayerName As String = SafeString(oDRSubPlayer("Name"))
+                        oRow("Player") = String.Format("{0}{1}", SafeString(oDRSubPlayer("Login")), If(sPlayerName.Trim().Length > 0, "("& sPlayerName &")", ""))
                         oRow("PlayerID") = SafeString(oDRSubPlayer("PlayerID"))
                         oRow("CreditMaxAmount") = SafeString(oDRSubPlayer("CreditMaxAmount"))
                         oRow("BalanceAmount") = SafeString(oDRSubPlayer("BalanceAmount"))

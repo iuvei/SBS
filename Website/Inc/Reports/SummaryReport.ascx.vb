@@ -646,11 +646,12 @@ Namespace SBCWebsite
             If e.Item.ItemType = ListItemType.Item OrElse e.Item.ItemType = ListItemType.AlternatingItem OrElse e.Item.ItemType = ListItemType.EditItem Then
                 Dim dgSubPlayers As DataGrid = e.Item.FindControl("dgSubPlayers")
                 Dim lblAgentWeekly As Literal = e.Item.FindControl("lblAgentWeekly")
+                Dim sAgentName As String = SafeString(e.Item.DataItem("Name")) 
                 If UserSession.UserType = SBCBL.EUserType.SuperAdmin AndAlso AgentID = "All" Then
 
-                    lblAgentWeekly.Text = "Agent: " & e.Item.DataItem("AgentName")
+                    lblAgentWeekly.Text = String.Format("Agent: {0}{1}", SafeString(e.Item.DataItem("Login")), If(sAgentName.Trim().Length > 0, "("& sAgentName &")", "")) 
                 Else
-                    lblAgentWeekly.Text = "Agent: " & e.Item.DataItem("AgentName")
+                    lblAgentWeekly.Text = String.Format("Agent: {0}{1}", SafeString(e.Item.DataItem("Login")), If(sAgentName.Trim().Length > 0, "("& sAgentName &")", "")) 
                 End If
 
                 Session("AgentID") = SafeString(e.Item.DataItem("AgentID"))
