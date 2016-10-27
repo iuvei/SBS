@@ -27,7 +27,7 @@ Partial Class SBS_Players_Layout_Layout6_headerTopBarLayout6
     Protected Sub LoadLogo()
         Dim userSession As New CSBCSession()
         Try
-            lblUser.Text = userSession.PlayerUserInfo.Name
+            lblUser.Text = userSession.PlayerUserInfo.Login
         Catch ex As Exception
         End Try
 
