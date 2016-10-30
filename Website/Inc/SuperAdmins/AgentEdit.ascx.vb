@@ -75,7 +75,9 @@ Namespace SBCSuperAdmin
 
             For Each drParent As DataRow In odrParents
                 Dim sAgentID As String = SafeString(drParent("AgentID"))
-                ddlPAgents.Items.Add(New ListItem(SafeString(drParent("AgentName")), sAgentID))
+                Dim nName As String = SafeString(drParent("Name"))
+                Dim sText As String = loopString("----", SafeInteger(drParent("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drParent("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
+                ddlPAgents.Items.Add(New ListItem(sText, sAgentID))
 
                 loadSubAgent(sAgentID, dtParents)
             Next
@@ -87,7 +89,8 @@ Namespace SBCSuperAdmin
             Dim odrSubAgents As DataRow() = podtAgents.Select("ParentID=" & SQLString(psParentAgentID), "AgentName")
 
             For Each drChild As DataRow In odrSubAgents
-                Dim sText As String = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & SafeString(drChild("AgentName"))
+                Dim nName As String = SafeString(drChild("Name"))
+                Dim sText As String = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drChild("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
                 Dim sAgentID As String = SafeString(drChild("AgentID"))
 
                 ddlPAgents.Items.Add(New ListItem(sText, sAgentID))

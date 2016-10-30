@@ -104,7 +104,9 @@ Namespace SBCSuperAdmin
 
             For Each drParent As DataRow In odrParents
                 Dim sAgentID As String = SafeString(drParent("AgentID"))
-                ddlAgents.Items.Add(New ListItem(SafeString(drParent("AgentName")), sAgentID))
+                Dim nName As String = SafeString(drParent("Name"))
+                Dim sText As String = loopString("----", SafeInteger(drParent("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drParent("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
+                ddlAgents.Items.Add(New ListItem(sText, sAgentID))
 
                 loadSubAgent(sAgentID, dtParents)
             Next
@@ -115,7 +117,8 @@ Namespace SBCSuperAdmin
             Dim odrSubAgents As DataRow() = podtAgents.Select("ParentID=" & SQLString(psParentAgentID), "AgentName")
 
             For Each drChild As DataRow In odrSubAgents
-                Dim sText As String = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & SafeString(drChild("AgentName"))
+                Dim nName As String = SafeString(drChild("Name"))
+                Dim sText As String = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drChild("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
                 Dim sAgentID As String = SafeString(drChild("AgentID"))
 
                 ddlAgents.Items.Add(New ListItem(sText, sAgentID))
@@ -234,6 +237,17 @@ Namespace SBCSuperAdmin
                         PlayerEdit1.ResetPlayerInfor()
                     End If
             End Select
+        End Sub
+
+        Protected Sub dgPlayers_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.DataGridItemEventArgs) Handles dgPlayers.ItemDataBound
+            If e.Item.ItemType = ListItemType.AlternatingItem OrElse e.Item.ItemType = ListItemType.Item Then
+                Dim oData As DataRowView = CType(e.Item.DataItem, DataRowView)
+               
+                'Set text for Name(Login)
+                Dim nName As String = SafeString(oData("Name"))
+                Dim lbtnEdit As LinkButton = CType(e.Item.FindControl("lbtnEdit"), LinkButton)
+                lbtnEdit.Text = string.Format("{0}{1}", SafeString(oData("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
+            End If
         End Sub
 
         Protected Sub btnViewLock_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnViewLock.Click

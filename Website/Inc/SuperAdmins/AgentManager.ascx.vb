@@ -95,7 +95,8 @@ Namespace SBCSuperAdmin
                 odtAgents.Rows.Add(odrAgent)
 
                 odrAgent("AgentID") = drParent("AgentID")
-                odrAgent("AgentName") = loopString("----", SafeInteger(drParent("AgentLevel")) - 1) & SafeString(drParent("AgentName"))
+                 Dim nName As String = SafeString(drParent("Name"))
+                odrAgent("AgentName") = loopString("----", SafeInteger(drParent("AgentLevel")) - 2) & string.Format("{0}{1}", SafeString(drParent("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
                 odrAgent("Login") = drParent("Login")
                 odrAgent("IsLocked") = drParent("IsLocked")
                 odrAgent("IsBettingLocked") = drParent("IsBettingLocked")
@@ -115,7 +116,8 @@ Namespace SBCSuperAdmin
                 odtAgents.Rows.Add(odrAgent)
 
                 odrAgent("AgentID") = drChild("AgentID")
-                odrAgent("AgentName") = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & SafeString(drChild("AgentName"))
+                Dim nName As String = SafeString(drChild("Name"))
+                odrAgent("AgentName") = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drChild("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
                 odrAgent("Login") = drChild("Login")
                 odrAgent("IsLocked") = drChild("IsLocked")
                 odrAgent("IsBettingLocked") = drChild("IsBettingLocked")

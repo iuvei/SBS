@@ -712,7 +712,9 @@ Namespace SBCAgents
 
             For Each drParent As DataRow In odrParents
                 Dim sAgentID As String = SafeString(drParent("AgentID"))
-                ddlAgents.Items.Add(New ListItem(SafeString(drParent("AgentName")), sAgentID))
+                Dim nName As String = SafeString(drParent("Name"))
+                Dim sText As String = loopString("----", SafeInteger(drParent("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drParent("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
+                ddlAgents.Items.Add(New ListItem(sText, sAgentID))
 
                 loadSubAgentSuperAdmin(sAgentID, dtParents)
             Next
@@ -725,7 +727,8 @@ Namespace SBCAgents
             Dim odrSubAgents As DataRow() = podtAgents.Select("ParentID=" & SQLString(psParentAgentID), "AgentName")
 
             For Each drChild As DataRow In odrSubAgents
-                Dim sText As String = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & SafeString(drChild("AgentName"))
+                Dim nName As String = SafeString(drChild("Name"))
+                Dim sText As String = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drChild("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
                 Dim sAgentID As String = SafeString(drChild("AgentID"))
 
                 ddlAgents.Items.Add(New ListItem(sText, sAgentID))
@@ -743,7 +746,7 @@ Namespace SBCAgents
             odtAgents.Columns.Add("AgentName", GetType(String))
 
             ''parent
-            Dim sParentName As String = String.Format("{0} ({1})", UserSession.AgentUserInfo.Login, UserSession.AgentUserInfo.Name)
+            Dim sParentName As String = string.Format("{0} {1}", UserSession.AgentUserInfo.Login, If(UserSession.AgentUserInfo.Name.Trim().Length > 0, "("& UserSession.AgentUserInfo.Name &")", "") )
             odtAgents.Rows.Add(New Object() {UserSession.UserID, sParentName})
 
             Dim oAgentManager As New CAgentManager()
@@ -757,7 +760,8 @@ Namespace SBCAgents
                 odtAgents.Rows.Add(odrAgent)
 
                 odrAgent("AgentID") = drParent("AgentID")
-                odrAgent("AgentName") = loopString("----", SafeInteger(drParent("AgentLevel")) - 1) & SafeString(drParent("AgentName"))
+                Dim nName As String = SafeString(drParent("Name"))
+                odrAgent("AgentName") = loopString("----", SafeInteger(drParent("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drParent("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
                 loadSubAgent(SafeString(drParent("AgentID")), dtParents, odtAgents)
             Next
 
@@ -772,7 +776,8 @@ Namespace SBCAgents
                 odtAgents.Rows.Add(odrAgent)
 
                 odrAgent("AgentID") = drChild("AgentID")
-                odrAgent("AgentName") = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & SafeString(drChild("AgentName"))
+                Dim nName As String = SafeString(drChild("Name"))
+                odrAgent("AgentName") = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drChild("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
 
                 loadSubAgent(SafeString(drChild("AgentID")), podtParents, odtAgents)
             Next

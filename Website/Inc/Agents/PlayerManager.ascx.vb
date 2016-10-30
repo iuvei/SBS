@@ -121,7 +121,8 @@ Namespace SBSAgents
                 Dim odrAgent As DataRow = odtAgents.NewRow
                 odtAgents.Rows.Add(odrAgent)
                 odrAgent("AgentID") = drChild("AgentID")
-                odrAgent("AgentName") = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & SafeString(drChild("AgentName"))
+                Dim nName As String = SafeString(drChild("Name"))
+                odrAgent("AgentName") = loopString("----", SafeInteger(drChild("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drChild("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
                 odrAgent("Login") = drChild("Login")
                 odrAgent("IsLocked") = drChild("IsLocked")
                 odrAgent("IsBettingLocked") = drChild("IsBettingLocked")
@@ -139,7 +140,7 @@ Namespace SBSAgents
             odtAgents.Columns.Add("IsBettingLocked", GetType(String))
             odtAgents.Columns.Add("LastLoginDate", GetType(DateTime))
             ''parent
-            Dim sParentName As String = String.Format("{0} ({1})", UserSession.AgentUserInfo.Login, UserSession.AgentUserInfo.Name)
+            Dim sParentName As String = string.Format("{0} {1}", UserSession.AgentUserInfo.Login, If( UserSession.AgentUserInfo.Name.Trim().Length > 0, "("& UserSession.AgentUserInfo.Name &")", "") )
             odtAgents.Rows.Add(New Object() {UserSession.UserID, sParentName})
             Dim oAgentManager As New CAgentManager
             Dim dtParents As DataTable = oAgentManager.GetAllAgentsByAgent(UserSession.UserID, Nothing)
@@ -149,7 +150,8 @@ Namespace SBSAgents
                 Dim odrAgent As DataRow = odtAgents.NewRow
                 odtAgents.Rows.Add(odrAgent)
                 odrAgent("AgentID") = drParent("AgentID")
-                odrAgent("AgentName") = loopString("----", SafeInteger(drParent("AgentLevel")) - 1) & SafeString(drParent("AgentName"))
+                Dim nName As String = SafeString(drParent("Name"))
+                odrAgent("AgentName") = loopString("----", SafeInteger(drParent("AgentLevel")) - 1) & string.Format("{0}{1}", SafeString(drParent("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
                 odrAgent("Login") = drParent("Login")
                 odrAgent("IsLocked") = drParent("IsLocked")
                 odrAgent("IsBettingLocked") = drParent("IsBettingLocked")
