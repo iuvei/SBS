@@ -35,7 +35,7 @@
                     <label class="col-md-3 control-label">Name</label>
                     <div class="col-md-6">
                         <asp:TextBox ID="txtName" CssClass="form-control" MaxLength="50" runat="server"
-                            AutoPostBack="true" />
+                            AutoPostBack="False" />
                     </div>
                     <div class="col-md-1">
                         <asp:ImageButton ID="ibtGenerateLogin" runat="server" ToolTip="Generate login" ImageUrl="~/images/cancel.gif"

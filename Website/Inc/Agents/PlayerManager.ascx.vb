@@ -324,6 +324,11 @@ Namespace SBSAgents
 
                 lbnBettingLock.Visible = SafeBoolean(UserSession.AgentUserInfo.IsEnableBlockPlayer)
                 lbnLock.Visible = SafeBoolean(UserSession.AgentUserInfo.IsEnableBlockPlayer)
+
+                'Set text for Name(Login)
+                Dim nName As String = SafeString(oData("Name"))
+                Dim lbtEdit As LinkButton = CType(e.Item.FindControl("lbtEdit"), LinkButton)
+                lbtEdit.Text = string.Format("{0}{1}", SafeString(oData("Login")), If(nName.Trim().Length > 0, "("& nName &")", "") )
             End If
         End Sub
 

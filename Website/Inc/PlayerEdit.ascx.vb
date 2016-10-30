@@ -503,10 +503,10 @@ Namespace SBCAgents
         End Function
 
         Private Function checkPlayerInfor() As Boolean
-            If SafeString(txtName.Text) = "" Then
-                ClientAlert("Player Name Is Required", True)
-                txtName.Focus() : Return False
-            End If
+            'If SafeString(txtName.Text) = "" Then
+            '    ClientAlert("Player Name Is Required", True)
+            '    txtName.Focus() : Return False
+            'End If
             If SafeString(txtLogin.Text) = "" Then
                 ClientAlert("Login Name Is Required", True)
                 txtName.Focus() : Return False

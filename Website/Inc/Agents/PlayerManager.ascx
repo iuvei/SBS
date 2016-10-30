@@ -98,7 +98,7 @@
                                 <ItemTemplate>
                                     <nobr>
                 <asp:HiddenField ID="hfPlayerTemplateID" runat="server" Value='<%# SBCBL.std.SafeString(Container.DataItem("PlayerTemplateID")) & "|" & SBCBL.std.SafeString(Container.DataItem("DefaultPlayerTemplateID")) %>' />
-                <asp:LinkButton ID="lbtEdit" CssClass="itemplayer" runat="server" CommandArgument='<%#Container.DataItem("PlayerID") %>' CommandName="EditUser" Text='<%#Container.DataItem("Login") & " (" & Container.DataItem("Name")  & ")" %>'></asp:LinkButton> </nobr>
+                <asp:LinkButton ID="lbtEdit" CssClass="itemplayer" runat="server" CommandArgument='<%#Container.DataItem("PlayerID") %>' CommandName="EditUser"></asp:LinkButton> </nobr>
                                     <asp:HiddenField ID="hfLock" runat="server" Value='<%# SBCBL.std.SafeString(Container.DataItem("IsLocked")) %>'></asp:HiddenField>
                                     <asp:HiddenField ID="hfBettingLock" runat="server" Value='<%# SBCBL.std.SafeString(Container.DataItem("IsBettingLocked")) %>'></asp:HiddenField>
                                 </ItemTemplate>
