@@ -205,7 +205,7 @@
                                                                 <%#IIf(SBCBL.std.IsBaseball(Container.DataItem("GameType")), "<span class='mlaction'>Action</span>", "")%>
                                                                 <br/>
                                                                 <asp:RadioButton ID="rdSelectAwayMLine2" runat="server" CssClass="chkBetActionSelect none" />
-                                                                <asp:TextBox ID="txtMoneyAwayMLine2" runat="server" size="3"  MaxLength="5" 
+                                                                <asp:TextBox ID="txtMoneyAwayMLine2" CssClass="input-field-1 w43px h21px" runat="server" size="3"  MaxLength="5" 
                                                                 AutoPostBack="false" />
                                                                 <asp:CheckBox ID="chkSelectAwayMLine2" CssClass="chkBetActionSelect" runat="server" />
                                                                 <asp:Label ID="lblAwayMoneyLine2" runat="server"  class="labelodd" />

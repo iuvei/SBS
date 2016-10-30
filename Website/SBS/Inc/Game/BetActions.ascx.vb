@@ -1687,7 +1687,8 @@ Partial Class SBS_Inc_Game_BetActions
 
 
                 If nHomeSpread = 0 Then
-                    lblHomeSpread.Text = "PK&nbsp;" & SafeString(nMoneyLine)
+                    'lblHomeSpread.Text = "PK&nbsp;" & SafeString(nMoneyLine)
+                    lblHomeSpread.Text = "PK&nbsp;" & SafeString(IIf(nMoneyLine > 0, "+" & nMoneyLine, nMoneyLine))
                 End If
                 If UCase(lblHomeSpread.Text) = "PK 0" OrElse UCase(lblHomeSpread.Text) = "PK&NBSP;0" Then
                     lblHomeSpread.Text = ""
@@ -3438,9 +3439,16 @@ PropGame:
                 If bBuyPoint Then
                     Dim nSpread As Double
                     Dim nJuice As Double
+                    Dim sSppread As String
+
                     ''Single Parlay
                     nJuice = If(pnBetPoint = -100, 100, pnBetPoint)
-                    Dim oDicItem As New DictionaryEntry(SafeString(IIf(pnJuice > 0, "+" & pnJuice, pnJuice)) & "   " & SafeString(IIf(nJuice > 0, "+" & nJuice, nJuice)), "")
+                    sSppread = SafeString(pnJuice)
+                    If UCase(psBetType) = "SPREAD" Then
+                        sSppread = SafeString(IIf(pnJuice > 0, "+" & pnJuice, pnJuice))
+                    End If
+
+                    Dim oDicItem As New DictionaryEntry(sSppread & "   " & SafeString(IIf(nJuice > 0, "+" & nJuice, nJuice)), "")
                     olstDic.Add(oDicItem)
 
                     If IsFootball(psGameType) Then
@@ -3449,7 +3457,13 @@ PropGame:
                         If pnJuice = 3 OrElse pnJuice = -3 OrElse pnJuice = 2.5 OrElse pnJuice = -3.5 Then
                             nSpread = pnJuice + 0.5
                             nJuice = pnBetPoint - 10
-                            oDicItem = New DictionaryEntry(SafeString(IIf(nSpread > 0, "+" & nSpread, nSpread)) & " (" & SafeString(IIf(nJuice > 0, "+" & nJuice, nJuice)) & ")", "0.5|-10")
+
+                            sSppread = SafeString(nSpread)
+                            If UCase(psBetType) = "SPREAD" Then
+                                sSppread = SafeString(IIf(nSpread > 0, "+" & nSpread, nSpread))
+                            End If
+
+                            oDicItem = New DictionaryEntry(sSppread & " (" & SafeString(IIf(nJuice > 0, "+" & nJuice, nJuice)) & ")", "0.5|-10")
                             olstDic.Add(oDicItem)
                         End If
 
@@ -3465,7 +3479,12 @@ PropGame:
                             nSpread = pnJuice + nAddpoint
                             nJuice = pnBetPoint + (-nPoint * 20)
 
-                            oDicItem = New DictionaryEntry(SafeString(IIf(nSpread > 0, "+" & nSpread, nSpread)) & "   " & SafeString(IIf(nJuice > 0, "+"& nJuice, nJuice)),
+                            sSppread = SafeString(nSpread)
+                            If UCase(psBetType) = "SPREAD" Then
+                                sSppread = SafeString(IIf(nSpread > 0, "+" & nSpread, nSpread))
+                            End If
+
+                            oDicItem = New DictionaryEntry(sSppread & "   " & SafeString(IIf(nJuice > 0, "+"& nJuice, nJuice)),
                                                            SafeString(nAddpoint) & "|" & SafeString(-nPoint * 20))
                             olstDic.Add(oDicItem)
                         Next
