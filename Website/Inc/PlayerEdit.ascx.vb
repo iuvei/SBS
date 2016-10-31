@@ -206,7 +206,7 @@ Namespace SBCAgents
             txtAccountBalance.Text = SafeDouble(odrPlayer("BalanceAmount")) 'show on Account Balance textbox
 
             If UserSession.UserType = EUserType.Agent Then
-                txtCreditMaxAmount.Enabled = False
+                'txtCreditMaxAmount.Enabled = False
                 btnUpdateOrginalAmount.Visible = False
             End If
 

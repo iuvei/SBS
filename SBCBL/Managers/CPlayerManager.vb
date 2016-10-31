@@ -1585,6 +1585,7 @@ Namespace Managers
 
             Return bSuccess
         End Function
+
     End Class
 
 End Namespace

@@ -444,17 +444,27 @@ Namespace SBCSuperAdmin
         End Function
 
         Protected Sub btnCreate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreate.Click
-            If checkCreateNewGroupPlayer() Then
+            'If checkCreateNewGroupPlayer() Then
                 Dim sPresetAgentID As String = SafeString(ddlAgents.SelectedValue)
                 If String.IsNullOrEmpty(sPresetAgentID) Then
                     ClientAlert("Please, select Agent", True)
                     Return
                 End If
                 Dim nCurrentPlayer As Integer = UserSession.Cache.GetAgentInfo(sPresetAgentID).CurrentPlayerNumber
+
+                Dim sPlayerTemplateID As String = ""
+
+                If ddlplayerTemplate.SelectedValue = "" Then
+                   Dim oPlayerTemplateManager As New CPlayerTemplateManager()
+                   sPlayerTemplateID  = oPlayerTemplateManager.GetPlayerTemplateIDByName("Limit 0")
+                Else 
+                   sPlayerTemplateID = ddlplayerTemplate.SelectedValue
+                End If
+
                 Dim oPlayerManager As New CPlayerManager()
                 Dim bPresetSuccess = oPlayerManager.CreatePresetPlayers(SafeString(sPresetAgentID), SafeInteger(rdlNumAcc.SelectedValue), UserSession.Cache.GetAgentInfo(sPresetAgentID).SpecialKey, _
                                 nCurrentPlayer + 1, 1, _
-                                ddlplayerTemplate.SelectedValue, UserSession.UserID, std.GetSiteType.ToString(), True)
+                                sPlayerTemplateID, UserSession.UserID, std.GetSiteType.ToString(), True)
                 If (bPresetSuccess) Then
                     Dim oAgent As New CAgentManager
                     oAgent.IncreaseCurrentPlayerNumber(sPresetAgentID, nCurrentPlayer + SafeInteger(rdlNumAcc.SelectedValue))
@@ -462,7 +472,7 @@ Namespace SBCSuperAdmin
                     ddlplayerTemplate.SelectedIndex = 0
                     ClientAlert("Create successful", True)
                 End If
-            End If
+            'End If
             bindPlayers()
         End Sub
 

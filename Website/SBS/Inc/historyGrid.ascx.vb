@@ -73,10 +73,10 @@ Namespace SBSWebsite
 
             grdHistory.DataSource = poHistoryTickets
             grdHistory.Columns(0).Visible = ShowCAgentName
-            grdHistory.Columns(1).Visible = Not ShowPlayerName
+            grdHistory.Columns(1).Visible = Not ShowPlayerName AndAlso (String.IsNullOrEmpty(AgentName))
             grdHistory.Columns(4).Visible = ShowPlayerName
-            grdHistory.Columns(12).Visible = ShowPlayerName
-            grdHistory.Columns(13).Visible = ShowPlayerName
+            grdHistory.Columns(12).Visible = ShowPlayerName OrElse  (Not String.IsNullOrEmpty(AgentName))
+            grdHistory.Columns(13).Visible = ShowPlayerName OrElse  (Not String.IsNullOrEmpty(AgentName))
             grdHistory.Columns(5).Visible = Not String.IsNullOrEmpty(AgentName)
             grdHistory.DataBind()
 
@@ -380,6 +380,8 @@ Namespace SBSWebsite
                     'e.Item.Cells(11).Text = FormatNumber(Me.TotalWin + SafeDouble(oTicketBet("WinAmount")), 2)
                     e.Item.Cells(12).Text = SafeString(IIf(Me.TotalBalance >= 0, "", "-")) & FormatNumber(Math.Abs(Me.TotalBalance), Me.RoundMidPoint)
                 Else
+                   
+                    CType(e.Item.FindControl("lblAgent"), Label).Text = AgentName
                     Dim sTicketType = GetTicketType(oTicketBet)
 
                 CType(e.Item.FindControl("lblTicketDate"), Label).Text = SafeDate(oTicketBet("TransactionDate")) & "<br /> ET"

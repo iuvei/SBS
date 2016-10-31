@@ -214,6 +214,25 @@ Namespace Managers
             Return oPlayerTemplate
         End Function
 
+        Public Function GetPlayerTemplateIDByName(ByVal psPlayerTemplateName As String) As String
+            Dim sTemplateName As String = ""
+
+            Dim sSQL As String = "SELECT PlayerTemplateID FROM PlayerTemplates WHERE TemplateName=" _
+            & SQLString(psPlayerTemplateName)
+            Dim odbSQL As New CSQLDBUtils(SBC_CONNECTION_STRING, "")
+
+            Try
+                sTemplateName = SafeString(odbSQL.getScalerValue(sSQL))
+
+            Catch ex As Exception
+                log.Error("Cannot get player template ID. SQL: " & sSQL, ex)
+            Finally
+                odbSQL.closeConnection()
+            End Try
+
+            Return sTemplateName
+        End Function
+
         Public Function GetPlayerTemplates(ByVal psSiteType As String) As DataTable
             Dim odtTemplates As DataTable = Nothing
             Dim oWhere As New CSQLWhereStringBuilder
