@@ -366,10 +366,19 @@ Namespace SBCSuperAdmin
                     bSuccess = oSysManager.AddSysSetting(sAgentID & "LineOffHour", strGameTotalPointsDisplay, "8", "1H", 0, kGameType.Value)
                 Next
             End If
+
+            Dim sPlayerTemplateID As String = ""
+                If ddlTemplates.SelectedValue = "" Then
+                   Dim oPlayerTemplateManager As New CPlayerTemplateManager()
+                   sPlayerTemplateID  = oPlayerTemplateManager.GetPlayerTemplateIDByName("Limit 0")
+                Else 
+                   sPlayerTemplateID = ddlTemplates.SelectedValue
+                End If
+
             Dim oPlayerManager As New CPlayerManager()
             bPresetSuccess = oPlayerManager.CreatePresetPlayers(sAgentID, nNumberAcc, SafeString(txtSpecialKey.Text), _
                             SafeInteger(txtCurrentPlayerNumber.Text), SafeInteger(ddlTimeZone.Value), _
-                            ddlTemplates.SelectedValue, UserSession.UserID, SiteType.ToString(), chkRequireChangePass.Checked)
+                            sPlayerTemplateID, UserSession.UserID, SiteType.ToString(), chkRequireChangePass.Checked)
             If AgentID = "" Then
                 If bSuccess And bPresetSuccess Then
                     ClientAlert("Successfully Saved", True)
