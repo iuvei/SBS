@@ -519,7 +519,8 @@ Namespace Managers
                         With oInsert
                             .AppendString("PlayerID", SQLString(newGUID))
                             .AppendString("AgentID", SQLString(psAgentID))
-                            .AppendString("Name", SQLString(psPrefix & nIndex.ToString()))
+                            '.AppendString("Name", SQLString(psPrefix & nIndex.ToString()))
+                            .AppendString("Name", SQLString(""))
                             .AppendString("Login", SQLString(psPrefix & nIndex.ToString()))
                             .AppendString("Password", SQLString("12345"))
                             .AppendString("PasswordLastUpdated", SQLString(Date.Now.ToUniversalTime()))
