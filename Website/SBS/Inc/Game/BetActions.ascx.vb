@@ -1464,7 +1464,7 @@ Partial Class SBS_Inc_Game_BetActions
             nMoneyLine = _oOddsRuleEngine.GetMoneyLine(sGameID, sGameType, "Away", sContext, "TeamTotalPoints",
                                                       SafeDouble(oData("AwayTeamTotalPointsOverMoney")), True, "away")
 
-            lblAwayTeamTotalPointsOverMoney.Text = String.Format("Over{0}", IIf(nMoneyLine > 0, "&nbsp;+" & nMoneyLine, "&nbsp;" & nMoneyLine))
+            lblAwayTeamTotalPointsOverMoney.Text = String.Format("Over{0}", IIf(nMoneyLine > 0 OrElse nMoneyLine = -100, "&nbsp;+" & nMoneyLine, "&nbsp;" & nMoneyLine))
             sClick = String.Format("javascript: return Betting(this,""{0}"",""{1}"",""{2}"",""{3}"",""{4}"",""{5}"",""{6}"",""{7}""," &
             """{8}"",""{9}"",""{10}"",""{11}"",""{12}"",""{13}"",""{14}"",""{15}"",{16},{17},""{18}"",""{19}"",""{20}"",""{21}"",""{22}"");",
             oData("GameID"), oData("GameLineID"), oData("GameType"),
@@ -1479,7 +1479,7 @@ Partial Class SBS_Inc_Game_BetActions
 
             nMoneyLine = _oOddsRuleEngine.GetMoneyLine(sGameID, sGameType, "Home", sContext, "TeamTotalPoints",
                                                       SafeDouble(oData("AwayTeamTotalPointsUnderMoney")), False, "away")
-            lblAwayTeamTotalPointsUnderMoney.Text = String.Format("Under{0}", IIf(nMoneyLine > 0, "&nbsp;+" & nMoneyLine, "&nbsp;" & nMoneyLine))
+            lblAwayTeamTotalPointsUnderMoney.Text = String.Format("Under{0}", IIf(nMoneyLine > 0 OrElse  nMoneyLine = -100, "&nbsp;+" & nMoneyLine, "&nbsp;" & nMoneyLine))
             sClick = String.Format("javascript: return Betting(this,""{0}"",""{1}"",""{2}"",""{3}"",""{4}"",""{5}"",""{6}"",""{7}""," &
                        """{8}"",""{9}"",""{10}"",""{11}"",""{12}"",""{13}"",""{14}"",""{15}"",{16},{17},""{18}"",""{19}"",""{20}"");",
                        oData("GameID"), oData("GameLineID"), oData("GameType"),
@@ -1493,7 +1493,7 @@ Partial Class SBS_Inc_Game_BetActions
             ''total-Team under
             nMoneyLine = _oOddsRuleEngine.GetMoneyLine(sGameID, sGameType, "Away", sContext, "TeamTotalPoints",
                                                       SafeDouble(oData("HomeTeamTotalPointsOverMoney")), True, "home")
-            lblHomeTeamTotalPointsOverMoney.Text = String.Format("Over{0}", IIf(nMoneyLine > 0, "&nbsp;+" & nMoneyLine, "&nbsp;" & nMoneyLine))
+            lblHomeTeamTotalPointsOverMoney.Text = String.Format("Over{0}", IIf(nMoneyLine > 0 OrElse nMoneyLine = -100, "&nbsp;+" & nMoneyLine, "&nbsp;" & nMoneyLine))
 
             sClick = String.Format("javascript: return Betting(this,""{0}"",""{1}"",""{2}"",""{3}"",""{4}"",""{5}"",""{6}"",""{7}""," &
             """{8}"",""{9}"",""{10}"",""{11}"",""{12}"",""{13}"",""{14}"",""{15}"",{16},{17},""{18}"",""{19}"",""{20}"",""{21}"",""{22}"");",
@@ -1507,7 +1507,7 @@ Partial Class SBS_Inc_Game_BetActions
             rdHomeTeamTotalOver.Attributes("OnClick") = sClick
             nMoneyLine = _oOddsRuleEngine.GetMoneyLine(sGameID, sGameType, "Home", sContext, "TeamTotalPoints",
                                                      SafeDouble(oData("HomeTeamTotalPointsUnderMoney")), False, "home")
-            lblHomeTeamTotalPointsUnderMoney.Text = String.Format("Under{0}", IIf(nMoneyLine > 0, "&nbsp;+" & nMoneyLine, "&nbsp;" & nMoneyLine))
+            lblHomeTeamTotalPointsUnderMoney.Text = String.Format("Under{0}", IIf(nMoneyLine > 0 OrElse nMoneyLine = -100, "&nbsp;+" & nMoneyLine, "&nbsp;" & nMoneyLine))
             sClick = String.Format("javascript: return Betting(this,""{0}"",""{1}"",""{2}"",""{3}"",""{4}"",""{5}"",""{6}"",""{7}""," &
             """{8}"",""{9}"",""{10}"",""{11}"",""{12}"",""{13}"",""{14}"",""{15}"",{16},{17},""{18}"",""{19}"",""{20}"",""{21}"",""{22}"");",
             oData("GameID"), oData("GameLineID"), oData("GameType"),
