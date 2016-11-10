@@ -66,7 +66,7 @@ Namespace SBSWebsite
             If poHistoryTickets.Rows.Count > 0 Then
                 Dim odrTotal As DataRow = poHistoryTickets.NewRow
                 odrTotal("TicketID") = newGUID()
-                'poHistoryTickets.Rows.Add(odrTotal)
+                poHistoryTickets.Rows.Add(odrTotal)
 
                 Me.HistoryTicketsCount = poHistoryTickets.Rows.Count
             End If
