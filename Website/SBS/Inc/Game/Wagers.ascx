@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="Wagers.ascx.vb" Inherits="SBSWebsite.Wagers" %>
 <%@ Register Assembly="WebsiteLibrary" Namespace="WebsiteLibrary" TagPrefix="wlb" %>
 <div id="betPickPanel" runat="server" class="row">
-    <div id="picks" class="col-lg-12" onkeypress="if(event.keyCode==13){debugger;document.getElementById('cphBody_ucBetActions_ucWagers_btnSubmit').click();return false;}">
+    <div id="picks" class="col-lg-12" onkeypress="if(event.keyCode==13){debugger;document.getElementById('<%= btnSubmit.ClientID %>').click();return false;}">
         <div id="wagers">
             <%--<h2 id="trTicketType" runat="server">Wager type : <%=BetTypeActive.Replace("BetTheBoard", "Straight Bet(s)").Replace("Reverse", "Action Reverse").Replace("BetIfAll", "Bet The Board")%></h2>--%>
             <div id="wager-print">
@@ -229,7 +229,7 @@
                     Width="180" MaxLength="50" CssClass="form-control input-field-2 h30px" Style="display: inline-block;"></asp:TextBox>
                 <asp:Button ID="btnSubmit" runat="server" Visible="true" Text="Submit" Style="margin-left: 20px;"
                     ToolTip="Confirm Bet(s)" CssClass="btn btn-dark button-style-2 w100px h24px" />
-                <asp:Button ID="btnCancel" runat="server" Text="Cancel Your Wager" Style="display: none; margin-left: 10px; margin-right: 25px;" CssClass="btn btn-red button-style-2 red w175px h24px"
+                <asp:Button ID="btnCancel" runat="server" Text="Cancel Your Wager" Visible="False" Style="display: none; margin-left: 10px; margin-right: 25px;" CssClass="btn btn-red button-style-2 red w175px h24px"
                     ToolTip="Cancel Your Wager" />
                 <%--<div class="clearfix"></div>--%>
             </div>
