@@ -312,6 +312,7 @@ Namespace SBSWebsite
                     oItem.Cells(9).RowSpan = nRowSpan 'Wager Type
                     oItem.Cells(10).RowSpan = nRowSpan 'Risk
                     oItem.Cells(11).RowSpan = nRowSpan 'Win
+                    oItem.Cells(12).RowSpan = nRowSpan 'Amount
 
                     oItem.Cells(4).RowSpan = nRowSpan 'Player
                     oItem.Cells(5).RowSpan = nRowSpan 'Agent
@@ -328,6 +329,7 @@ Namespace SBSWebsite
                         oItemRowSpan.Cells(9).Visible = False
                         oItemRowSpan.Cells(10).Visible = False
                         oItemRowSpan.Cells(11).Visible = False
+                        oItemRowSpan.Cells(12).Visible = False
 
                         oItemRowSpan.Cells(4).Visible = False 'Player
                         oItemRowSpan.Cells(5).Visible = False 'Agent
