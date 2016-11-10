@@ -424,13 +424,13 @@ Namespace SBCSuperAdmin
             txtLogin.Text = (New CPlayerManager).AutoGenerateLogin(sName, SBCBL.std.GetSiteType)
         End Sub
 
-        Protected Sub txtName_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtName.TextChanged
-            If AgentID <> "" Then
-                Return
-            End If
+        'Protected Sub txtName_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtName.TextChanged
+        '    If AgentID <> "" Then
+        '        Return
+        '    End If
 
-            ibtGenerateLogin_Click(Nothing, Nothing)
-        End Sub
+        '    ibtGenerateLogin_Click(Nothing, Nothing)
+        'End Sub
 
         Protected Sub ddlPAgents_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlPAgents.SelectedIndexChanged
             txtProfitPercentage.Enabled = ddlPAgents.Value <> ""

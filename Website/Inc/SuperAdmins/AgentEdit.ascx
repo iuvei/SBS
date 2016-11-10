@@ -22,7 +22,7 @@
             Name
         </td>
         <td>
-            <asp:TextBox ID="txtName" CssClass="textInput" MaxLength="50" runat="server" AutoPostBack="true" />
+            <asp:TextBox ID="txtName" CssClass="textInput" MaxLength="50" runat="server" AutoPostBack="False" />
             <asp:ImageButton ID="ibtGenerateLogin" runat="server" ToolTip="Generate login" ImageUrl="~/images/cancel.gif"
                 ImageAlign="AbsMiddle" Style="height: 16px" />
         </td>
