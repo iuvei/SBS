@@ -277,7 +277,7 @@ Namespace Managers
 
             Dim oUpdate As New CSQLUpdateStringBuilder("Players", "WHERE PlayerID ='" + psPlayerID + "' ")
             oUpdate.AppendString("OriginalAmount", SQLString(pnOriginalAmount))
-            Dim canUpdateBalanceAmount = oPlayerInfo.OriginalAmount = oPlayerInfo.BalanceAmount
+            Dim canUpdateBalanceAmount = oPlayerInfo.BalanceAmount = 0
             If canUpdateBalanceAmount Then
                 oUpdate.AppendString("BalanceAmount", SQLString(pnOriginalAmount))
             End If
@@ -643,9 +643,11 @@ Namespace Managers
             Dim oDT As DataTable = odbSQL.getDataTable(sSQL)
             Dim nOldBalanceAmount As Double = SafeDouble(oDT.Rows(0)("BalanceAmount"))
             Dim nOldOriginalAmount As Double = SafeDouble(oDT.Rows(0)("OriginalAmount"))
-            If nOldBalanceAmount = nOldOriginalAmount Then
+            'If nOldBalanceAmount = nOldOriginalAmount Then
                 Try
-                    oUpdate.AppendString("BalanceAmount", SafeString(pnBalanceAmount))
+                    If nOldBalanceAmount = 0 Then
+                        oUpdate.AppendString("BalanceAmount", SafeString(pnBalanceAmount))    
+                    End If
                     oUpdate.AppendString("OriginalAmount", SafeString(pnBalanceAmount))
                     bSuccess = odbSQL.executeNonQuery(oUpdate, "") > 0
 
@@ -658,7 +660,7 @@ Namespace Managers
                     odbSQL.closeConnection()
                 End Try
                 Return bSuccess
-            End If
+            'End If
         End Function
 
         Public Function UpdatePlayerCasino(ByVal psAgentID As String, ByVal pbHasCasino As Boolean, ByVal psChangedBy As String) As Boolean
