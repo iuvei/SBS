@@ -270,7 +270,8 @@ Namespace SBCAgents
                     ' txtAccountBalance.Text = .AccountBalance
 
                     'When create new Player, set default value of Account Balance is CreditMax Amount
-                    If Me.IsCreateNew Or (odrPlayer IsNot Nothing AndAlso SafeString(odrPlayer("PlayerTemplateID")) = "") Then
+                    'If Me.IsCreateNew Or (odrPlayer IsNot Nothing AndAlso SafeString(odrPlayer("PlayerTemplateID")) = "") Then
+                    If Me.IsCreateNew Then
                         txtAccountBalance.Text = .CreditMaxAmount
                     Else
                         If odrPlayer IsNot Nothing Then
