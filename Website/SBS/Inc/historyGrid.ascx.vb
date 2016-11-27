@@ -409,7 +409,7 @@ Namespace SBSWebsite
                 CType(e.Item.FindControl("lblRisk"), Label).Text = FormatNumber(SafeDouble(oTicketBet("RiskAmount")), 2)
                 CType(e.Item.FindControl("lblWin"), Label).Text = FormatNumber(SafeDouble(oTicketBet("WinAmount")), 2)
 
-                Dim sStatus As String = SafeString(oTicketBet("TicketBetStatus"))
+                Dim sStatus As String = SafeString(oTicketBet("TicketStatus"))
                     CType(e.Item.FindControl("lblResult"), Label).Text = IIf(String.IsNullOrEmpty(SafeString(oTicketBet("TicketBetPush"))), IIf(UCase(sStatus) = "LOSE", "LOSS", sStatus), SafeString(oTicketBet("TicketBetPush")))
 
                     If ShowPlayerName Then
