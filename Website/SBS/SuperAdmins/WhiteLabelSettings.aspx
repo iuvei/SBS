@@ -28,10 +28,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Mobile Phone
+                        <td>Mobile URL</td>
+                        <td><asp:TextBox ID="txtMobileURL" runat="server" CssClass="textInput" Width="95%" /></td>
+                        <td>Mobile Phone</td>
+                        <td><asp:TextBox ID="txtSuperAgentPhone" runat="server" CssClass="textInput" Width="95%" /></td>
+                    </tr>
+                    <tr>
+                        <td>Backup URL
                         </td>
                         <td>
-                            <asp:TextBox ID="txtSuperAgentPhone" runat="server" CssClass="textInput" Width="95%" />
+                            <asp:TextBox ID="txtBackupURL" runat="server" Width="95%" ></asp:TextBox>
                         </td>
                         <td>Color Scheme
                         </td>
@@ -129,14 +135,7 @@
                             <asp:Button ID="btnDeleteBottomLoginBackground" runat="server" Text="Delete" Visible="false" />
                         </td>
                     </tr>
-                    <tr>
-                        <td>Backup URL
-                        </td>
-                        <td>
-                            <asp:TextBox ID="txtBackupURL" runat="server" Width="95%" ></asp:TextBox>
-                        </td>
-                        <td colspan="2"></td>
-                    </tr>
+                    
                     <tr>
                         <td colspan="4" style="text-align: center;">
                             <asp:Button ID="bnSave" runat="server" CssClass="btn btn-primary" Text="Save" />

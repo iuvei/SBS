@@ -1,12 +1,10 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="layout6LoginForm.ascx.vb" Inherits="SBS_Inc_Login_layout6LoginForm" %>
 
-
-
 <form id="form2" runat="server" class="document layout-small">
     <div>
         <!-- Header -->
         <div class="header">
-            <div class="logo-login-info-area clear h110px overhidden pdLR10 ly-uw-768-h-auto">
+            <div class="logo-login-info-area clear overhidden pdLR10 ly-uw-768-h-auto pdB10">
                 <div class="logo-main h110px left ly-uw-768-1:1">
                     <a class="block full-h" href="#">
                         <img id="imgLogo" runat="server" src="~/Content/themes/agent/layout6/images/icons/logo_77ebet_h.png" visible="False"/>
@@ -17,14 +15,17 @@
                     <asp:Login ID="Login1" runat="server" DisplayRememberMe="False" TitleText="" PasswordRequiredErrorMessage="Password is required"
                         UserNameRequiredErrorMessage="User name is required" Width="100%">
                         <LayoutTemplate>
-                            <%--<input class="input-style-1 w145px h30px mgR5" type="text" placeholder="USERNAME" />
-                            <input class="input-style-1 w150px h30px mgR5" type="password" placeholder="PASSWORD" />--%>
-                            <asp:TextBox ID="UserName" runat="server" MaxLength="50" onkeypress="return checkWhiteSpace(event);"
-                                onchange="processWhiteSpace(this,'divCapsLock');" CssClass="input-style-1 w145px h30px mgR5" placeholder="USERNAME" />
-                            <asp:TextBox ID="Password" runat="server" TextMode="Password" MaxLength="20" onkeypress="checkCapsLock(event, 'divCapsLock');"
-                                CssClass="input-style-1 w145px h30px mgR5" placeholder="PASSWORD" />
-                            <%--<button class="button-style-4 h30px pdLR10">Login</button>--%>
-                            <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Login" ValidationGroup="Login1" CssClass="button-style-4 h30px pdLR10" />
+                            <div>
+                                <asp:TextBox ID="UserName" runat="server" MaxLength="50" onkeypress="return checkWhiteSpace(event);"
+                                    onchange="processWhiteSpace(this,'divCapsLock');" CssClass="input-style-1 w145px h30px mgR5" placeholder="USERNAME" />
+                                <asp:TextBox ID="Password" runat="server" TextMode="Password" MaxLength="20" onkeypress="checkCapsLock(event, 'divCapsLock');"
+                                    CssClass="input-style-1 w145px h30px mgR5" placeholder="PASSWORD" />
+                                <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Login" ValidationGroup="Login1" CssClass="button-style-4 h30px pdLR10" />    
+                                <p class="text-right pdT5">
+                                    <asp:HyperLink runat="server" ID="lnkMobileURL" Visible="False">Login Mobile</asp:HyperLink>
+                                </p>
+                            </div>
+                            
                             <div class="errortxt">
                                 <span class="lblipmsg"><asp:Literal ID="FailureText" runat="server" EnableViewState="False"  /></span>
                                 <br/>

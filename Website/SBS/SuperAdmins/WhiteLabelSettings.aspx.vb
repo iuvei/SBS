@@ -41,6 +41,7 @@ Namespace SBSSuperAdmin
                 imgBottomLoginBackground.ImageUrl = oWhiteLabel.BottomBackgroundLoginImage
                 txtSuperAgentPhone.Text = oWhiteLabel.SuperAgentPhone
                 txtBackupURL.Text = oWhiteLabel.BackupURL
+                txtMobileURL.Text = oWhiteLabel.MobileURL
                 If oWhiteLabel.ColorScheme <> "" Then
                     ddlColor.SelectedValue = oWhiteLabel.ColorScheme
                 Else
@@ -95,14 +96,7 @@ Namespace SBSSuperAdmin
         End Sub
       
         Protected Sub bnSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles bnSave.Click
-            Dim sURL As String = SafeString(txtSiteURL.Text).ToLower()
-            If sURL.StartsWith("http://") Then
-                sURL = sURL.Substring("http://".Length)
-            End If
-
-            If sURL.StartsWith("www.") Then
-                sURL = sURL.Substring("www.".Length)
-            End If
+            Dim sURL As String = FormatURL(SafeString(txtSiteURL.Text))
 
             If sURL = "" Then
                 ClientAlert("Please Input Site URL", True)
@@ -112,6 +106,8 @@ Namespace SBSSuperAdmin
                 ClientAlert("Site URL Has Already Existed", True)
                 Return
             End If
+
+            Dim sMobileURL As String = FormatURL(SafeString(txtMobileURL.Text))
 
             Dim oWhiteLabel As New SBCBL.CacheUtils.CWhiteLabelSettings()
             If CurrentWhiteLabelSettingID = "" Then
@@ -174,11 +170,13 @@ Namespace SBSSuperAdmin
             End If
             oWhiteLabel.BackupURL = SafeString(txtBackupURL.Text)
             oWhiteLabel.SiteURL = sURL
+            oWhiteLabel.MobileURL = sMobileURL
             oWhiteLabel.CopyrightName = SafeString(txtCopyright.Text)
             oWhiteLabel.SiteType = GetSiteType()
             oWhiteLabel.ColorScheme = ddlColor.SelectedValue
             oWhiteLabel.LoginTemplate = ddlLoginTemplate.SelectedItem.Text
             oWhiteLabel.SuperAgentPhone = SafeString(txtSuperAgentPhone.Text)
+            oWhiteLabel.MobileURL = SafeString(txtMobileURL.Text)
             If CurrentWhiteLabelSettingID = "" Then
                 oWhiteLabel.InsertNew()
             Else
@@ -193,9 +191,24 @@ Namespace SBSSuperAdmin
             Response.Redirect(Request.Url.AbsoluteUri)
         End Sub
 
+        Private Function FormatURL(ByVal psURL As String) As String
+            Dim sURL As String = psURL.ToLower()
+            If sURL.StartsWith("http://") Then
+                sURL = sURL.Substring("http://".Length)
+            End If
+
+            If sURL.StartsWith("www.") Then
+                sURL = sURL.Substring("www.".Length)
+            End If
+
+            Return sURL
+
+        End Function
+
         Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
             txtCopyright.Text = ""
             txtSiteURL.Text = ""
+            txtMobileURL.Text = ""
             txtSuperAgentPhone.Text = ""
             CurrentWhiteLabelSettingID = ""
             imgFav.Visible = False

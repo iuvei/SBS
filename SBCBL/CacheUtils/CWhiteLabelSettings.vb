@@ -28,6 +28,7 @@ Namespace CacheUtils
         Public BottomBackgroundLoginImage As String
         Public SuperAgentPhone As String
         Public BackupURL As String
+        Public MobileURL As String
         Private Const CACHE_TIME As Integer = 20 'minutes until each cache entry expires
 
         Public Function InsertNew() As Boolean
@@ -49,6 +50,7 @@ Namespace CacheUtils
             oInsert.AppendString("BottomBackgroundLoginImage", SQLString(BottomBackgroundLoginImage))
             oInsert.AppendString("SuperAgentPhone", SQLString(SuperAgentPhone))
             oInsert.AppendString("BackupURL", SQLString(BackupURL))
+            oInsert.AppendString("MobileURL", SQLString(MobileURL))
             Dim oDB As New CSQLDBUtils(SBC_CONNECTION_STRING, "")
             Try
                 oDB.executeNonQuery(oInsert.SQL)
@@ -82,6 +84,7 @@ Namespace CacheUtils
             oUpdate.AppendString("CopyrightName", SQLString(CopyrightName))
             oUpdate.AppendString("ColorScheme", SQLString(ColorScheme))
             oUpdate.AppendString("LoginTemplate", SQLString(LoginTemplate))
+            oUpdate.AppendString("MobileURL", SQLString(MobileURL))
             If LogoFileName <> "" Then
                 oUpdate.AppendString("LogoFileName", SQLString(LogoFileName))
             End If
@@ -171,6 +174,7 @@ Namespace CacheUtils
                     oSetting.BottomBackgroundLoginImage = SafeString(oDT.Rows(0)("BottomBackgroundLoginImage"))
                     oSetting.SuperAgentPhone = SafeString(oDT.Rows(0)("SuperAgentPhone"))
                     oSetting.BackupURL = SafeString(oDT.Rows(0)("BackupURL"))
+                    oSetting.MobileURL = SafeString(oDT.Rows(0)("MobileURL"))
 
                     HttpContext.Current.Cache.Add(sKey, oSetting, Nothing, Date.Now.AddMinutes(CACHE_TIME), Nothing, Caching.CacheItemPriority.Default, Nothing)
                     Return oSetting
@@ -207,6 +211,7 @@ Namespace CacheUtils
                     oSetting.BottomBackgroundLoginImage = SafeString(oDT.Rows(0)("BottomBackgroundLoginImage"))
                     oSetting.SuperAgentPhone = SafeString(oDT.Rows(0)("SuperAgentPhone"))
                     oSetting.BackupURL = SafeString(oDT.Rows(0)("BackupURL"))
+                    oSetting.MobileURL = SafeString(oDT.Rows(0)("MobileURL"))
                     Return oSetting
                 End If
             Catch ex As Exception

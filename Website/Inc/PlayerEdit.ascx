@@ -222,6 +222,7 @@
                     <div class="col-md-4 hide">
                         <asp:HiddenField ID="hfBalanceAmount" runat="server" />
                         <asp:HiddenField ID="hfMaxCredit" runat="server" />
+                        <asp:HiddenField ID="hfTempCredit" runat="server" />
 
                         <label class="col-md-3 control-label hide">Max 1H</label>
                         <div class="col-md-3 hide">

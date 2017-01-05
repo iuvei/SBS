@@ -645,7 +645,7 @@ Namespace Managers
             Dim nOldOriginalAmount As Double = SafeDouble(oDT.Rows(0)("OriginalAmount"))
             'If nOldBalanceAmount = nOldOriginalAmount Then
                 Try
-                    If nOldBalanceAmount = 0 Then
+                    If nOldBalanceAmount = 0 OrElse nOldBalanceAmount = nOldOriginalAmount Then
                         oUpdate.AppendString("BalanceAmount", SafeString(pnBalanceAmount))    
                     End If
                     oUpdate.AppendString("OriginalAmount", SafeString(pnBalanceAmount))
@@ -806,6 +806,34 @@ Namespace Managers
             Catch ex As Exception
                 bSuccess = False
                 log.Error("Error trying to save AccountBalance. SQL: " & oUpdate.SQL, ex)
+            Finally
+                odbSQL.closeConnection()
+            End Try
+
+            Return bSuccess
+        End Function
+
+        Public Function UpdateTempCredit(ByVal psPlayerID As String, ByVal pnTempCredit As Double, ByVal psChangedBy As String) As Boolean
+
+            Dim bSuccess As Boolean = True
+
+            Dim oUpdate As New CSQLUpdateStringBuilder("Players", "WHERE PlayerID= " & SQLString(psPlayerID))
+            Dim odbSQL As New CSQLDBUtils(SBC_CONNECTION_STRING, SBC2_CONNECTION_STRING)
+            Try
+                With oUpdate
+                    .AppendString("TempCredit", SQLString(pnTempCredit))
+                End With
+
+                log.Debug("Update TempCredit. SQL: " & oUpdate.SQL)
+                odbSQL.executeNonQuery(oUpdate, psChangedBy)
+
+                ''clear cache
+                Dim oCache As New CacheUtils.CCacheManager
+                oCache.ClearPlayerInfo(psPlayerID)
+                '' Update Casino Account
+            Catch ex As Exception
+                bSuccess = False
+                log.Error("Error trying to save TempCredit. SQL: " & oUpdate.SQL, ex)
             Finally
                 odbSQL.closeConnection()
             End Try

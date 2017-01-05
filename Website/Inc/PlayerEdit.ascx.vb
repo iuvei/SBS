@@ -1,4 +1,5 @@
-﻿Imports System.Data
+﻿Imports System.Activities.Statements
+Imports System.Data
 Imports SBCBL
 Imports SBCBL.std
 Imports SBCBL.CacheUtils
@@ -202,6 +203,13 @@ Namespace SBCAgents
             chkIsLocked.Checked = SafeString(odrPlayer("IsLocked")) = "Y"
             ddlAgents.Value = SafeString(odrPlayer("AgentID"))
             psdPassword.Password = odrPlayer("Password")
+            
+            Dim tempCredit As Double = SafeDouble(odrPlayer("TempCredit"))
+            If tempCredit > 0 Then
+                txtCreditMaxAmount.Enabled = False
+            End If
+            hfTempCredit.Value = SafeString(tempCredit)
+            txtTemporary.Text = SafeString(tempCredit)
 
             txtAccountBalance.Text = SafeDouble(odrPlayer("BalanceAmount")) 'show on Account Balance textbox
 
@@ -657,8 +665,13 @@ Namespace SBCAgents
                 ClientAlert("Please, Temporary credit cannot empty", True)
                 Return
             Else
+                Dim newAccountBalance As Integer = SafeInteger(txtAccountBalance.Text) - (SafeInteger(hfTempCredit.Value) - SafeInteger(txtTemporary.Text))
+
                 Dim oPlayerManager As New CPlayerManager()
-                bSuccess = oPlayerManager.UpdateAccountBalance(SafeString(hfPlayerID.Value), SafeInteger(txtAccountBalance.Text) + SafeInteger(txtTemporary.Text), UserSession.UserID)
+
+                If oPlayerManager.UpdateTempCredit(SafeString(hfPlayerID.Value), SafeInteger(txtTemporary.Text), UserSession.UserID) Then
+                    bSuccess = oPlayerManager.UpdateAccountBalance(SafeString(hfPlayerID.Value), newAccountBalance, UserSession.UserID)
+                End If
             End If
             If bSuccess Then
                 LoadPlayerInfo(SafeString(hfPlayerID.Value))

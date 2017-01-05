@@ -73,6 +73,8 @@ Partial Class SBS_Inc_Login_layout6LoginForm
         End If
 
         LoadLogo()
+        
+        GetMobileURL()
     End Sub
 
     Protected Sub LoadLogo()
@@ -95,6 +97,27 @@ Partial Class SBS_Inc_Login_layout6LoginForm
 
     Public Sub ChangeUser()
         CType(Login1.FindControl("UserNameLabel"), Label).Text = "Agent"
+    End Sub
+
+    Protected Sub GetMobileURL()
+        Dim lnkMobileURL As HyperLink = CType(Login1.FindControl("lnkMobileURL"), HyperLink)
+
+        If lnkMobileURL IsNot Nothing Then
+            Dim oWhiteLabel As New SBCBL.CacheUtils.CWhiteLabelSettings()
+            Try
+                oWhiteLabel = oWhiteLabel.LoadByUrl(Request.Url.Host)
+                If oWhiteLabel IsNot Nothing Then
+                    If Not String.IsNullOrEmpty(oWhiteLabel.MobileURL) Then
+                        lnkMobileURL.NavigateUrl =  String.Format("http://{0}", oWhiteLabel.MobileURL)
+                        lnkMobileURL.Visible = True
+                    End If
+
+                End If
+
+            Catch ex As Exception
+            End Try
+        End If
+        
     End Sub
 
 End Class
